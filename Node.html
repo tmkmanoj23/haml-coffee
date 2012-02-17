@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Haml Coffee Documentation</title>
+  <link rel='stylesheet' href='../assets/codo.css' type='text/css'>
+  <script src='../assets/codo.js'></script>
+</head>
+  <body>
+    <div id='header'>
+  <div id='menu'>
+    <a href='../_index.html' title='Index'>Index</a>
+    &raquo;
+    <span class='title'>Node</span>
+  </div>
+  <div id='search'>
+    <a id='class_list_link' href='../class_list.html'>Class List</a>
+    <a id='method_list_link' href='../method_list.html'>Method List</a>
+    <a id='file_list_link' href='../file_list.html'>File List</a>
+  </div>
+  <iframe id='search_frame'></iframe>
+</div>
+    <div id='content'>
+      <h1>
+        Class:
+        Node
+        <span class='note title'>Abstract</span>
+      </h1>
+      <dl class='box'>
+        <dt>Defined in:</dt>
+        <dd>src/nodes/node.coffee</dd>
+      </dl>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <div class='abstract note'>
+    <strong>
+      This
+      class
+      is abstract.
+    </strong>
+    
+  </div>
+  <p>Base class for the syntax tree.
+
+</p>
+<p>This will provide some methods that subclasses must use in order to generate
+some output:
+
+</p>
+<ul>
+<li>{#markText}</li>
+<li>{#markRunningCode}</li>
+<li>{#markInsertingCode}</li>
+</ul>
+<p>Each node must mark the <code>@opener</code> attribute and can optionally mark the <code>@closer</code>
+attribute.
+
+
+</p>
+
+</div>
+<div class='tags'>
+</div>
+      <h2>Direct Known Subclasses</h2>
+      <p class='children'>
+        <a href="../classes/Code.html">Code</a>
+        <a href="../classes/Comment.html">Comment</a>
+        <a href="../classes/Filter.html">Filter</a>
+        <a href="../classes/Haml.html">Haml</a>
+        <a href="../classes/Text.html">Text</a>
+      </p>
+      <h2>Constant Summary</h2>
+      <dl class='constants'>
+        <dt id='CLEAR_WHITESPACE_LEFT-constant'>
+          CLEAR_WHITESPACE_LEFT
+          =
+          <div class='docstring'>
+  <p>Hidden unicode marker to remove left whitespace after template rendering.
+</p>
+
+</div>
+<div class='tags'>
+</div>
+        </dt>
+        <dd>
+          <pre><code class='CoffeeScript'>'\u0091'</code></pre>
+        </dd>
+        <dt id='CLEAR_WHITESPACE_RIGHT-constant'>
+          CLEAR_WHITESPACE_RIGHT
+          =
+          <div class='docstring'>
+  <p>Hidden unicode marker to remove right whitespace after template rendering.
+</p>
+
+</div>
+<div class='tags'>
+</div>
+        </dt>
+        <dd>
+          <pre><code class='CoffeeScript'>'\u0092'</code></pre>
+        </dd>
+      </dl>
+      <h2>Instance Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#constructor-instance'>
+        - (void) <strong>constructor</strong>(expression = '', options = {})
+      </a>
+    </span>
+    <span class='constructor note title'>Constructor</span>
+    <span class='desc'>
+      Constructs a syntax node.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#addChild-instance'>
+        - (void) <strong>addChild</strong>(child)
+      </a>
+    </span>
+    <span class='desc'>
+      Add a child node.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#getOpener-instance'>
+        - (String) <strong>getOpener</strong>()
+      </a>
+    </span>
+    <span class='desc'>
+      Get the opening tag for the node.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#getCloser-instance'>
+        - (String) <strong>getCloser</strong>()
+      </a>
+    </span>
+    <span class='desc'>
+      Get the closing tag for the node.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#isPreserved-instance'>
+        - (Boolean) <strong>isPreserved</strong>()
+      </a>
+    </span>
+    <span class='desc'>
+      Traverse up the tree to see if a parent node is preserving output space.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#markText-instance'>
+        - (Object) <strong>markText</strong>(text, escape = false)
+      </a>
+    </span>
+    <span class='desc'>
+      Creates a marker for static outputted text.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#markRunningCode-instance'>
+        - (Object) <strong>markRunningCode</strong>(code)
+      </a>
+    </span>
+    <span class='desc'>
+      Creates a marker for running CoffeeScript code that doesn't generate any output.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#markInsertingCode-instance'>
+        - (Object) <strong>markInsertingCode</strong>(code, escape = false, preserve = false, findAndPreserve = false)
+      </a>
+    </span>
+    <span class='desc'>
+      Creates a marker for inserting CoffeeScript code that generate an output.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#evaluate-instance'>
+        - (void) <strong>evaluate</strong>()
+      </a>
+    </span>
+    <span class='abstract note title'>Abstract</span>
+    <span class='desc'>
+      Template method that must be implemented by each Node subclass.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#render-instance'>
+        - (Array) <strong>render</strong>()
+      </a>
+    </span>
+    <span class='desc'>
+      Render the node and its children.
+    </span>
+  </li>
+</ul>
+      <h2>Constructor Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='constructor-instance'>
+      - (void) <strong>constructor</strong>(expression = '', options = {})
+    </p>
+    <div class='docstring'>
+  <p>Constructs a syntax node.
+
+
+</p>
+
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>expression</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the Haml expression to evaluate</span>
+    </li>
+    <li>
+      <span class='name'>options</span>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the node options</span>
+    </li>
+  </ul>
+  <h3>
+    Options Hash:
+    (options):
+  </h3>
+  <ul class='options'>
+    <li>
+      <span class='name'>parentNode</span>
+      <span class='type'>
+        (<tt><a href='../classes/Node.html'>Node</a></tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the parent node</span>
+    </li>
+    <li>
+      <span class='name'>blockLevel</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the HTML block level</span>
+    </li>
+    <li>
+      <span class='name'>codeBlockLevel</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the CoffeeScript block level</span>
+    </li>
+    <li>
+      <span class='name'>escapeHtml</span>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>whether to escape the rendered HTML or not</span>
+    </li>
+    <li>
+      <span class='name'>format</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the template format, either `xhtml`, `html4` or `html5`</span>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+      <h2>Instance Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='addChild-instance'>
+      - (void) <strong>addChild</strong>(child)
+    </p>
+    <div class='docstring'>
+  <p>Add a child node.
+
+
+</p>
+
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>child</span>
+      <span class='type'>
+        (<tt><a href='../classes/Node.html'>Node</a></tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the child node</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='getOpener-instance'>
+      - (String) <strong>getOpener</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Get the opening tag for the node.
+
+</p>
+<p>This may add a hidden unicode control character for
+later whitespace processing:
+
+</p>
+<ul>
+<li><code>\u0091</code> Cleanup surrounding whitespace to the left</li>
+<li><code>\u0092</code> Cleanup surrounding whitespace to the right</li>
+</ul>
+
+</div>
+<div class='tags'>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the opening tag</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='getCloser-instance'>
+      - (String) <strong>getCloser</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Get the closing tag for the node.
+
+</p>
+<p>This may add a hidden unicode control character for
+later whitespace processing:
+
+</p>
+<ul>
+<li><code>\u0091</code> Cleanup surrounding whitespace to the left</li>
+<li><code>\u0092</code> Cleanup surrounding whitespace to the right</li>
+</ul>
+
+</div>
+<div class='tags'>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the closing tag</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='isPreserved-instance'>
+      - (Boolean) <strong>isPreserved</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Traverse up the tree to see if a parent node
+is preserving output space.
+
+
+</p>
+
+</div>
+<div class='tags'>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>true when preserved</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='markText-instance'>
+      - (Object) <strong>markText</strong>(text, escape = false)
+    </p>
+    <div class='docstring'>
+  <p>Creates a marker for static outputted text.
+
+
+</p>
+
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>html</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the html to output</span>
+    </li>
+    <li>
+      <span class='name'>escape</span>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>whether to escape the generated output</span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the marker</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='markRunningCode-instance'>
+      - (Object) <strong>markRunningCode</strong>(code)
+    </p>
+    <div class='docstring'>
+  <p>Creates a marker for running CoffeeScript
+code that doesn&apos;t generate any output.
+
+
+</p>
+
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>code</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the CoffeeScript code</span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the marker</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='markInsertingCode-instance'>
+      - (Object) <strong>markInsertingCode</strong>(code, escape = false, preserve = false, findAndPreserve = false)
+    </p>
+    <div class='docstring'>
+  <p>Creates a marker for inserting CoffeeScript
+code that generate an output.
+
+
+</p>
+
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>code</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the CoffeeScript code</span>
+    </li>
+    <li>
+      <span class='name'>escape</span>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>whether to escape the generated output</span>
+    </li>
+    <li>
+      <span class='name'>preserve</span>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>when preserve all newlines</span>
+    </li>
+    <li>
+      <span class='name'>findAndPreserve</span>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>when preserve newlines within preserved tags</span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the marker</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='evaluate-instance'>
+      - (void) <strong>evaluate</strong>()
+    </p>
+    <div class='docstring'>
+  <div class='abstract note'>
+    <strong>
+      This
+      method
+      is abstract.
+    </strong>
+    
+  </div>
+  <p>Template method that must be implemented by each
+Node subclass. This evaluates the <code>@expression</code>
+and save marks the output type on the <code>@opener</code> and
+<code>@closer</code> attributes if applicable.
+
+
+</p>
+
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='render-instance'>
+      - (Array) <strong>render</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Render the node and its children.
+
+</p>
+<p>Always use <code>@opener</code> and <code>@closer</code> for content checks,
+but <code>@getOpener()</code> and <code>@getCloser()</code> for outputting,
+because they may contain whitespace removal control
+characters.
+
+
+</p>
+
+</div>
+<div class='tags'>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>Array</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>all markers</span>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+    </div>
+    <div id='footer'>
+  Generated on
+  Fri Feb 17 2012 17:40:29 GMT+0100 (CET)
+  by
+  <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>codo</a>
+  v0.2.1
+  (Node.js v0.6.10).
+  &#10034;
+  <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
+  &#10034;
+  <a href='https://mksoft.ch'>mksoft.ch</a>
+</div>
+  </body>
+</html>

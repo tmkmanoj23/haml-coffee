@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Haml Coffee Documentation</title>
+  <link rel='stylesheet' href='assets/codo.css' type='text/css'>
+  <script src='assets/codo.js'></script>
+</head>
+  <body>
+    <div id='header'>
+  <div id='menu'>
+    <a href='_index.html' title='Index'>Index</a>
+    &raquo;
+    <span class='title'>README.md</span>
+  </div>
+  <div id='search'>
+    <a id='class_list_link' href='class_list.html'>Class List</a>
+    <a id='method_list_link' href='method_list.html'>Method List</a>
+    <a id='file_list_link' href='file_list.html'>File List</a>
+  </div>
+  <iframe id='search_frame'></iframe>
+</div>
+    <div id='content'>
+      <div id='filecontents'>
+        <h1>Haml Coffee Templates <a href="http://travis-ci.org/9elements/haml-coffee"><img src="https://secure.travis-ci.org/9elements/haml-coffee.png" alt="Build Status"></a></h1>
+<p>Haml Coffee is a JavaScript templating solution that uses <a href="http://haml-lang.com/">Haml</a> as markup, understands inline
+<a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a> and generates a JavaScript function that renders to HTML. It
+can be used in client-side JavaScript applications that are using
+<a href="http://documentcloud.github.com/backbone/">Backbone.js</a>, <a href="http://spinejs.com/">Spine.js</a>,
+<a href="http://javascriptmvc.com/">JavaScriptMVC</a>, <a href="http://knockoutjs.com/">KnockoutJS</a> and others, or on the server-side in
+frameworks like <a href="http://expressjs.com/">Express</a>.
+
+</p>
+<h2>Contents</h2>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#compile-haml-coffee">Compile Haml Coffee</a><ul>
+<li><a href="#using-the-api">Using the API</a></li>
+<li><a href="#using-with-express">Using with Express</a></li>
+<li><a href="#using-the-cli-tool">Using the CLI tool</a></li>
+</ul>
+</li>
+<li><a href="#haml-support">Haml support</a></li>
+<li><a href="#coffee-script-support">CoffeeScript support</a><ul>
+<li><a href="#coffee-script-attributes">Attributes</a></li>
+<li><a href="#coffee-script-running-code">Running code</a></li>
+<li><a href="#coffee-script-filter">Filter</a></li>
+</ul>
+</li>
+<li><a href="#compiler-options">Compiler options</a><ul>
+<li><a href="#html-generation-compiler-options">HTML generation options</a></li>
+<li><a href="#custom-helper-function-compiler-options">Custom helper function options</a></li>
+</ul>
+</li>
+<li><a href="#development-information">Development information</a></li>
+</ul>
+<p><a name="installation" />
+</p>
+<h2>Installation</h2>
+<p>Haml Coffee is available in NPM and can be installed with:
+
+</p>
+<pre><code class="bash">$ npm install haml-coffee</code></pre>
+<p>If you like to integrate Haml Coffee into the Rails 3.1 asset pipeline, check out
+<a href="https://github.com/netzpirat/haml_coffee_assets">haml_coffee_assets</a>.
+
+</p>
+<p>For using the Haml Coffee compiler in the browser, a <a href="https://github.com/substack/node-browserify">browserified</a> version
+is provided in the <code>dist/compiler</code> directory:
+<a href="https://raw.github.com/9elements/haml-coffee/master/dist/compiler/hamlcoffee.js">Haml Coffee compiler</a>
+(<a href="https://raw.github.com/9elements/haml-coffee/master/dist/compiler/hamlcoffee.min.js">minified</a>)
+
+</p>
+<p><a name="compile-haml-coffee" />
+</p>
+<h2>Compile Haml Coffee</h2>
+<p><a name="using-the-api" />
+</p>
+<h3>Using the API</h3>
+<p>You can compile a Haml Coffee template to a JavaScript function and execute the function with the locals to render the
+HTML. The following code
+
+</p>
+<p>```coffee-script
+hamlc = require &apos;haml-coffee&apos;
+tmpl = hamlc.compile &apos;%h1= @title&apos;
+html = tmpl title: &apos;Haml Coffee rocks!&apos;
+</p>
+<pre><code>
+will create the HTML `&lt;h1&gt;Haml Coffee rocks!&lt;/h1&gt;`.
+
+The `compile` function can take the compiler options as second parameter to customize the template function:
+
+```coffee-script
+hamlc.compile &apos;%h1= @title&apos;
+  cleanValue: false
+  escapeHtml: false</code></pre>
+<p>See the <a href="#compiler-options">compiler options</a> for detailed information about all the available options.
+
+</p>
+<p><a name="using-with-express" />
+</p>
+<h3>Using with Express</h3>
+<p>You can configure <a href="http://expressjs.com/">Express</a> to use Haml Coffee as template engine:
+
+</p>
+<p>```coffee-script
+express = require &apos;express&apos;
+hamlc = require &apos;haml-coffee&apos;
+
+</p>
+<p>app = express.createServer()
+app.register &apos;.hamlc&apos;, hamlc
+</p>
+<pre><code>
+Express uses a layout file `layout.hamlc` by default and you have to insert the rendered view body into the layout like
+this:
+
+```haml
+!!!
+%head
+  %title Express App
+%body
+  != @body</code></pre>
+<p>Now you can create a Haml Coffee view
+
+</p>
+<pre><code class="haml">%h1= &quot;Welcome #{ @name }&quot;
+%p You&apos;ve rendered your first Haml Coffee view.</code></pre>
+<p>that you can render with:
+
+</p>
+<p>```coffee-script
+app.get &apos;/&apos;, (req, res) -&gt;
+  res.render &apos;index.hamlc&apos;, name: &apos;Express user&apos;
+</p>
+<pre><code>
+You can also turn off the layout rendering by configure the `view options`:
+
+```coffee-script
+app.set &apos;view options&apos;, layout: false</code></pre>
+<p>See the <a href="#compiler-options">compiler options</a> for detailed information about all the available options.
+
+</p>
+<p>It&apos;s possible to use Haml Coffee as the default template engine by setting the <code>view engine</code>:
+
+</p>
+<p>```coffee-script
+app.configure -&gt;
+  app.set &apos;view engine&apos;, &apos;hamlc&apos;
+</p>
+<pre><code>
+which allows you to omit the `.hamlc` extension when rendering a template:
+
+```coffee-script
+app.get &apos;/&apos;, (req, res) -&gt;
+  res.render &apos;index&apos;, name: &apos;Express user&apos;</code></pre>
+<p>You can read more about the view rendering in the
+<a href="http://expressjs.com/guide.html#view-rendering">Express documentation</a>.
+
+</p>
+<p><a name="using-the-cli-tool" />
+</p>
+<h3>Using the CLI tool</h3>
+<p>After the installation you will have a <code>haml-coffee</code> binary that can be used to compile single templates and even
+compile multiple templates recursively into a single file.
+
+</p>
+<pre><code class="bash">$ haml-coffee
+Usage: node haml-coffee
+
+Options:
+  -i, --input                        Either a file or a directory name to be compiled
+  -o, --output                       Set the output filename
+  -n, --namespace                    Set a custom template namespace
+  -t, --template                     Set a custom template name
+  -b, --basename                     Ignore file path when generate the template name</code></pre>
+<p><em>The following section describes only the options that are unique to the command line tool.</em>
+
+</p>
+<p>You can see all the available options by executing <code>haml-coffee --help</code> and have a look at the
+<a href="#compiler-options">compiler options</a> for detailed information about all the options.
+
+</p>
+<h4>Input filename</h4>
+<p>You can either specify a single template or a directory with the <code>-i</code>/<code>--input</code> argument. When you supply a directory,
+templates are being searched recursively:
+
+</p>
+<pre><code class="bash">$ haml-coffee -i template.haml</code></pre>
+<p>This will generate a template with the same name as the file but the extension changed to <code>.jst</code>. The above command for
+example would generate a template named <code>template.jst</code>.
+
+</p>
+<p>A valid Haml Coffee template must have one of the following extensions: <code>.haml</code>, <code>.html.haml</code>, <code>.hamlc</code> or
+<code>.html.hamlc</code>.
+
+</p>
+<h4>Output filename</h4>
+<p>You can specify a single output file name to be used instead of the automatic generated output file name with the
+<code>-o</code>/<code>--output</code> argument:
+
+</p>
+<pre><code class="bash">$ haml-coffee -i template.haml -o t.js</code></pre>
+<p>This creates a template named <code>t.js</code>. You can also set a directory as input and give an output file name for
+concatenating all templates into a single file:
+
+</p>
+<pre><code class="bash">$ haml-coffee -i templates -o all.js</code></pre>
+<p>This will create all the templates under the <code>templates</code> directory into a single, combined output file <code>all.js</code>.
+
+</p>
+<h4>Template namespace</h4>
+<p>Each template will register itself by default under the <code>window.HAML</code> namespace, but you can change the namespace with
+the <code>-n</code>/<code>--namespace</code> argument:
+
+</p>
+<pre><code class="bash">$ haml-coffee -i template.haml -n exports.JST</code></pre>
+<h4>Template name</h4>
+<p>Each template must have a unique name under which it can be addressed. By default the template name is derived from the
+template file name by stripping off all extensions and remove illegal characters. Directory names are converted to
+nested namespaces under the default namespace. For example, a template named <code>user/show-admin.html.haml</code> will result in
+a template that can be accessed by <code>window.HAML[&apos;user/show_admin&apos;]</code>.
+
+</p>
+<p>Given the <code>-b</code>/<code>--basename</code> argument, the deduced template name will not include the path to the template. For example,
+a template named <code>user/show-admin.html.haml</code> will result in a template that can be accessed by
+<code>window.HAML[&apos;show_admin&apos;]</code> instead of <code>window.HAML[&apos;user/show_admin&apos;]</code>.
+
+</p>
+<p>With the <code>-t</code>/<code>--template</code> argument you can set a template name manually:
+
+</p>
+<pre><code class="bash">$ haml-coffee -i template.haml -n exports.JST -t other</code></pre>
+<p>This will result in a template that can be accessed by <code>exports.JST[&apos;other&apos;]</code>.
+
+</p>
+<p><a name="haml-support" />
+</p>
+<h2>Haml support</h2>
+<p>Haml Coffee implements the <a href="https://github.com/norman/haml-spec">Haml Spec</a> to ensure some degree of compatibility to
+other Haml implementations and the following sections are fully compatible to Ruby Haml:
+
+</p>
+<ul>
+<li>Plain text</li>
+<li>Multiline: <code>|</code></li>
+<li>Element names <code>%</code></li>
+<li>Attributes: <code>{}</code> or <code>()</code></li>
+<li>Class and ID: <code>.</code> and <code>#</code>, implicit <code>div</code> elements</li>
+<li>Self-closing tags: <code>/</code></li>
+<li>Doctype: <code>!!!</code></li>
+<li>HTML comments: <code>/</code>, conditional comments: <code>/[]</code>, Haml comments: <code>-#</code></li>
+<li>Running CoffeeScript: <code>-</code>, inserting CoffeeScript: <code>=</code></li>
+<li>CoffeeScript interpolation: <code>#{}</code></li>
+<li>Whitespace preservation: <code>~</code></li>
+<li>Whitespace removal: <code>&gt;</code> and <code>&lt;</code></li>
+<li>Escaping <code>\</code></li>
+<li>Escaping HTML: <code>&amp;=</code>, unescaping HTML: <code>!=</code></li>
+<li>Filters: <code>:plain</code>, <code>:javascript</code>, <code>:css</code>, <code>:cdata</code>, <code>:escaped</code>, <code>:preserve</code></li>
+<li>Boolean attributes conversion</li>
+</ul>
+<p>Please consult the official <a href="http://haml-lang.com/docs/yardoc/file.HAML_REFERENCE.html">Haml reference</a> for more
+details.
+
+</p>
+<p>Haml Coffee supports both Ruby 1.8 and Ruby 1.9 style attributes. So the following Ruby 1.8 style attribute
+
+</p>
+<pre><code class="haml">%a{ :href =&gt; &apos;http://haml-lang.com/&apos; } Haml</code></pre>
+<p>can also be written in Ruby 1.9 style:
+
+</p>
+<pre><code class="haml">%a{ href: &apos;http://haml-lang.com/&apos; } Haml</code></pre>
+<h3>Helpers</h3>
+<p>Haml Coffee supports a small subset of the Ruby Haml <a href="http://haml-lang.com/docs/yardoc/Haml/Helpers.html">helpers</a>:
+
+</p>
+<h4>Surround</h4>
+<p>Surrounds a block of Haml code with strings, with no whitespace in between.
+
+</p>
+<pre><code class="haml">= surround &apos;(&apos;, &apos;)&apos;, -&gt;
+  %a{:href =&gt; &quot;food&quot;} chicken</code></pre>
+<p>produces the HTML output
+
+</p>
+<pre><code class="html">(&lt;a href=&apos;food&apos;&gt;chicken&lt;/a&gt;)</code></pre>
+<h4>Succeed</h4>
+<p>Appends a string to the end of a Haml block, with no whitespace between.
+
+</p>
+<pre><code class="haml">click
+= succeed &apos;.&apos;, -&gt;
+  %a{:href=&gt;&quot;thing&quot;} here</code></pre>
+<p>produces the HTML output
+
+</p>
+<pre><code class="html">click
+&lt;a href=&apos;thing&apos;&gt;here&lt;/a&gt;.</code></pre>
+<h4>Precede</h4>
+<p>Prepends a string to the beginning of a Haml block, with no whitespace between.
+
+</p>
+<pre><code class="haml">= precede &apos;*&apos;, -&gt;
+  %span.small Not really</code></pre>
+<p>produces the HTML output
+
+</p>
+<pre><code class="html">*&lt;span class=&apos;small&apos;&gt;Not really&lt;/span&gt;</code></pre>
+<p><a name="coffee-script-support" />
+</p>
+<h2>CoffeeScript support</h2>
+<p>Haml and CoffeeScript are a winning team, both use indention for blocks and are a perfect match for this reason. You can
+use CoffeeScript instead of Ruby in your Haml tags and the attributes.
+
+</p>
+<p><strong>It&apos;s not recommended to put too much logic into the template.</strong>
+
+</p>
+<p><a name="coffee-script-attributes" />
+</p>
+<h3>Attributes</h3>
+<p>When you define an attribute value without putting it into quotes (single or double quotes), it&apos;s considered to be
+CoffeeScript code to be run at render time. By default, attributes values from CoffeeScript code are escaped before
+inserting into the document. You can change this behaviour by setting the appropriate compiler option.
+
+</p>
+<p>HTML style attributes are the most limited and can only assign a simple variable:
+
+</p>
+<pre><code class="haml">%img(src=&apos;/images/demo.png&apos; width=@width height=@height alt=alt)</code></pre>
+<p>Both the <code>@width</code> and <code>@height</code> values must be passed as locals when rendering the template and <code>alt</code> must be defined
+before the <code>%img</code> tag.
+
+</p>
+<p>Ruby style tags can be more complex and can call functions:
+
+</p>
+<pre><code class="haml">%header
+  %user{ :class =&gt; App.currentUser.get(&apos;status&apos;) }= App.currentUser.getDisplayName()</code></pre>
+<p>Attribute definitions are also supported in the Ruby 1.9 style:
+
+</p>
+<pre><code class="haml">%header
+  %user{ class: App.currentUser.get(&apos;status&apos;) }= App.currentUser.getDisplayName()</code></pre>
+<p>More fancy stuff can be done when use interpolation within a double quoted attribute value:
+
+</p>
+<pre><code class="haml">%header
+  %user{ class: &quot;#{ if @user.get(&apos;roles&apos;).indexOf(&apos;admin&apos;) is -1 then &apos;normal&apos; else &apos;admin&apos; }&quot; }= @user.getDisplayName()</code></pre>
+<p><em>But think about it twice before putting such fancy stuff into your template, there are better places like models,
+controllers or helpers to put heavy logic into.</em>
+
+</p>
+<p>You can define your attributes over multiple lines and the next line must not be correctly indented, so you can align
+them properly:
+
+</p>
+<pre><code class="haml">%input#password.hint{ type: &apos;password&apos;, name: &apos;registration[password]&apos;,
+                      data: { hint: &apos;Something very important&apos;, align: &apos;left&apos; } }</code></pre>
+<p>In the above example you also see the usage for generating HTML5 data attributes.
+
+</p>
+<p><a name="coffee-script-running-code" />
+</p>
+<h3>Running Code</h3>
+<p>You can run any CoffeeScript code in your template:
+
+</p>
+<pre><code class="haml">- for project in @projects
+  - if project.visible
+    .project
+      %h1= project.name
+      %p&amp;= project.description</code></pre>
+<p>There are several supported types to run your code:
+
+</p>
+<ul>
+<li>Run code without insert anything into the document: <code>-</code></li>
+<li>Run code and insert the result into the document: <code>=</code></li>
+</ul>
+<p>All inserted content from running code is escaped by default. You can change this behaviour by setting the appropriate
+compiler option.
+
+</p>
+<p>There are three variations to run code and insert its result into the document, two of them to change the escaping style
+chosen in the compile option:
+
+</p>
+<ul>
+<li>Run code and do not escape the result: <code>!=</code></li>
+<li>Run code and escape the result: <code>&amp;=</code></li>
+<li>Preserve whitespace when insert the result: <code>~</code></li>
+</ul>
+<p>Again, please consult the official <a href="http://haml-lang.com/docs/yardoc/file.HAML_REFERENCE.html">Haml reference</a> for more
+details. Haml Coffee implements the same functionality like Ruby Haml, only for CoffeeScript.
+
+</p>
+<h4>Functions</h4>
+<p>You can also create functions that generate Haml:
+
+</p>
+<pre><code class="haml">- sum(a, b) -&gt;
+  %div
+    %span= a
+    %span= b
+    %span= a+b
+= sum(1,2)
+= sum(3,4)</code></pre>
+<p>or pass generated HTML output through a function for post-processing.
+
+</p>
+<pre><code class="haml">= postProcess -&gt;
+  %a{ href: &apos;/&apos; }</code></pre>
+<p><a name="coffee-script-filter" />
+</p>
+<h3>CoffeeScript filter</h3>
+<p>In addition to the <code>:plain</code>, <code>:javascript</code>, <code>:css</code>, <code>:cdata</code>, <code>:escaped</code> and <code>:preserve</code> filters, which are also
+provided by Ruby Haml, Haml Coffee has a <code>:coffeescript</code> filter.
+
+</p>
+<p>The content of the <code>:coffeescript</code> filter is run when the template is rendered and doesn&apos;t output anything into the
+resulting document. This comes in handy when you have code to run over multiple lines and don&apos;t want to prefix each line
+with <code>-</code>:
+
+</p>
+<pre><code class="haml">%body
+  :coffeescript
+    tags = [&apos;CoffeeScript&apos;, &apos;Haml&apos;]
+    project = &apos;Haml Coffee&apos;
+  %h2= project
+  %ul
+    - for tag in tags
+      %li= tag</code></pre>
+<p><a name="compiler-options" />
+</p>
+<h2>Compiler options</h2>
+<p>The following section describes all the available compiler options that you can use through the JavaScript API,
+as Express view option or as argument to the command line utility.
+
+</p>
+<p>The command line arguments may be slightly different. For example instead of passing <code>--escape-html=false</code> you have to
+use the <code>--disable-html-escaping</code> argument. You can see a list of all the command line arguments by executing
+<code>haml-coffee --help</code>.
+
+</p>
+<p><a name="html-generation-compiler-options" />
+</p>
+<h3>HTML generation options</h3>
+<p>The HTML options change the way how the generated HTML will look like.
+
+</p>
+<h4>Output format</h4>
+<ul>
+<li>Name: &apos;format&apos;</li>
+<li>Type: <code>String</code></li>
+<li>Default: <code>html5</code></li>
+</ul>
+<p>The Haml parser knows different HTML formats to which a given template can be rendered and it must be one of:
+
+</p>
+<ul>
+<li>xhtml</li>
+<li>html4</li>
+<li>html5</li>
+</ul>
+<p>Doctype, self-closing tags and attributes handling depends on this setting. Please consult the official
+<a href="http://haml-lang.com/docs/yardoc/file.HAML_REFERENCE.html">Haml reference</a> for more details.
+
+</p>
+<h4>Uglify output</h4>
+<ul>
+<li>Name: <code>uglify</code></li>
+<li>Type: <code>Boolean</code></li>
+<li>Default: <code>false</code></li>
+</ul>
+<p>All generated HTML tags are properly indented by default, so the output looks nice. This can be helpful when debugging.
+You can skip the indention by setting the <code>uglify</code> option to false. This save you some bytes and you&apos;ll have increased
+rendering speed.
+
+</p>
+<h4>HTML escape</h4>
+<ul>
+<li>Name: <code>htmlEscape</code></li>
+<li>Type: <code>Boolean</code></li>
+<li>Default: <code>true</code></li>
+</ul>
+<p>The reserved HTML characters <code>&quot;</code>, <code>&apos;</code>, <code>&amp;</code>, <code>&lt;</code> and <code>&gt;</code> are converted to their HTML entities by default when they are
+inserted into the HTML document from evaluated CoffeeScript.
+
+</p>
+<p>You can always change the escaping mode within the template to either force escaping with <code>&amp;=</code> or force unescaping with
+<code>!=</code>.
+
+</p>
+<h4>Attributes escape</h4>
+<ul>
+<li>Name: <code>escapeAttributes</code></li>
+<li>Type: <code>Boolean</code></li>
+<li>Default: <code>true</code></li>
+</ul>
+<p>All HTML attributes that are generated by evaluating CoffeeScript are also escaped by default. You can turn of HTML
+escaping of the attributes only by setting <code>escapeAttributes</code> to false. You can&apos;t change this behaviour in the template
+since there is no Haml markup for this to instruct the compiler to change the escaping mode.
+
+</p>
+<h4>Clean CoffeeScript values</h4>
+<ul>
+<li>Name: <code>cleanValue</code></li>
+<li>Type: <code>Boolean</code></li>
+<li>Default: <code>true</code></li>
+</ul>
+<p>Every output that is generated from evaluating CoffeeScript code is cleaned before inserting into the document. The
+default implementation converts <code>null</code> or <code>undefined</code> values into an empty string.
+
+</p>
+<h4>Preserve whitespace tags</h4>
+<ul>
+<li>Name: <code>preserve</code></li>
+<li>Type: <code>String</code></li>
+<li>Default: <code>textarea,pre</code></li>
+</ul>
+<p>The <code>preserve</code> option defines a list of comma separated HTML tags that are whitespace sensitive. Content from these tags
+must be preserved, so that the indention has no influence on the displayed content. This is simply done by converting
+the newline characters to their equivalent HTML entity.
+
+</p>
+<h4>Autoclose tags</h4>
+<ul>
+<li>Name: <code>autoclose</code></li>
+<li>Type: <code>String</code></li>
+<li>Default: <code>meta,img,link,br,hr,input,area,param,col,base</code></li>
+</ul>
+<p>The autoclose option defines a list of tag names that should be automatically closed if they have no content.
+
+</p>
+<p><a name="custom-helper-function-compiler-options" />
+</p>
+<h3>Custom helper function options</h3>
+<p>Haml Coffee provides helper functions for HTML escaping, value cleaning and whitespace preservation, which must be
+available at render time. By default every generated template function is self-contained and includes all of the helper
+functions.
+
+</p>
+<p>However you can change the reference to each helper function by providing the appropriate compiler option and there
+are good reasons to do so:
+
+</p>
+<ul>
+<li>You want to reduce the template size and provide all the helpers from a central place.</li>
+<li>You want to customize a helper function to better fit your needs.</li>
+</ul>
+<p>To change these functions, simply assign the new function name to one of the following options:
+
+</p>
+<ul>
+<li><code>customHtmlEscape</code>: Escape the reserved HTML characters into their equivalent HTML entity.</li>
+<li><code>customPreserve</code>: Converting newlines into their HTML entity.</li>
+<li><code>customFindAndPreserve</code>: Find whitespace sensitive tags and preserve their content.</li>
+<li><code>customCleanValue</code>: Clean the value that is returned after evaluating some inline CoffeeScript.</li>
+<li><code>customSurround</code>: Surrounds a block of Haml code with strings, with no whitespace in between.</li>
+<li><code>customSucceed</code>: Appends a string to the end of a Haml block, with no whitespace between.</li>
+<li><code>customPrecede</code>: Prepends a string to the beginning of a Haml block, with no whitespace between.</li>
+</ul>
+<p>You can find a default implementation for all these helper functions in the <code>dist/helpers</code> directory:
+<a href="https://raw.github.com/9elements/haml-coffee/master/dist/helpers/haml_coffee_helpers.coffee">CoffeeScript</a>
+<a href="https://raw.github.com/9elements/haml-coffee/master/dist/helpers/haml_coffee_helpers.js">JavaScript</a>
+
+</p>
+<p><a name="development-information" />
+</p>
+<h2>Development information</h2>
+<p>You&apos;ll need the latest version of <code>node.js</code>, <code>npm</code>, <code>coffee-script</code> and <code>jasmine-node</code> to run everything. Start
+the CoffeeScript compilation in the project root directory by running:
+
+</p>
+<pre><code class="bash">$ cake watch</code></pre>
+<p>And run the tests by calling:
+
+</p>
+<pre><code class="bash">$ jasmine-node</code></pre>
+<p>You can optionally install <a href="https://github.com/guard/guard">Guard</a> with the Ruby <a href="http://gembundler.com/">Bundler</a>:
+
+</p>
+<pre><code class="bash">$ bundle install</code></pre>
+<p>and run Guard to automatically compile your CoffeeScripts and run the Jasmine specs on file modification:
+
+</p>
+<pre><code class="bash">$ bundle exec guard</code></pre>
+<h2>Changelog</h2>
+<p>Feel free to take a look at the crispy <a href="https://github.com/9elements/haml-coffee/blob/master/CHANGELOG.md">changelog</a>
+instead of crawling through the commit history.
+
+</p>
+<h2>Related projects</h2>
+<p>Haml Coffee in the  Rails asset pipeline:
+
+</p>
+<ul>
+<li><a href="https://github.com/netzpirat/haml_coffee_assets">haml-coffee-assets</a></li>
+</ul>
+<h2>Authors</h2>
+<ul>
+<li><a href="https://github.com/netzpirat">Michael Kessler</a> (<a href="http://twitter.com/#!/netzpirat">@netzpirat</a>)</li>
+<li><a href="https://github.com/sebastiandeutsch">Sebastion Deutsch</a> (<a href="http://twitter.com/#!/sippndipp">@sippndipp</a>)</li>
+<li><a href="https://github.com/janv">Jan Varwig</a> (<a href="http://twitter.com/#!/agento">@agento</a>)</li>
+</ul>
+<p>Development is sponsored by <a href="http://9elements.com">9elements</a> and <a href="https://mksoft.ch">mksoft.ch</a>.
+
+</p>
+<h2>Contributors</h2>
+<p>See all contributors on <a href="https://github.com/9elements/haml-coffee/contributors">the contributor page</a>.
+
+</p>
+<h2>License</h2>
+<p>(The MIT License)
+
+</p>
+<p>Copyright (c) 2011-2012 9elements, Michael Kessler
+
+</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+&apos;Software&apos;), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+</p>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+</p>
+<p>THE SOFTWARE IS PROVIDED &apos;AS IS&apos;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+
+      </div>
+    </div>
+    <div id='footer'>
+  Generated on
+  Fri Feb 17 2012 17:40:29 GMT+0100 (CET)
+  by
+  <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>codo</a>
+  v0.2.1
+  (Node.js v0.6.10).
+  &#10034;
+  <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
+  &#10034;
+  <a href='https://mksoft.ch'>mksoft.ch</a>
+</div>
+  </body>
+</html>
