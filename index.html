@@ -8,14 +8,24 @@
   <body>
     <div id='header'>
   <div id='menu'>
-    <a href='_index.html' title='Index'>Index</a>
+    <a href='class_index.html' title='Index'>Index</a>
     &raquo;
     <span class='title'>README.md</span>
-  </div>
-  <div id='search'>
-    <a id='class_list_link' href='class_list.html'>Class List</a>
-    <a id='method_list_link' href='method_list.html'>Method List</a>
-    <a id='file_list_link' href='file_list.html'>File List</a>
+    <nav>
+      <ul>
+        <li class='frames'>
+          (<a class='frames' href='frames.html'>frames</a>)
+        </li>
+        <li class='noframes'>
+          (<a class='noframes' href='#'>no frames</a>)
+        </li>
+      </ul>
+    </nav>
+    <div id='search'>
+      <a id='class_list_link' href='class_list.html'>Class List</a>
+      <a id='method_list_link' href='method_list.html'>Method List</a>
+      <a id='file_list_link' href='file_list.html'>File List</a>
+    </div>
   </div>
   <iframe id='search_frame'></iframe>
 </div>
@@ -81,9 +91,9 @@ HTML. The following code
 
 </p>
 <p>```coffee-script
-hamlc = require &apos;haml-coffee&apos;
-tmpl = hamlc.compile &apos;%h1= @title&apos;
-html = tmpl title: &apos;Haml Coffee rocks!&apos;
+hamlc = require &#39;haml-coffee&#39;
+tmpl = hamlc.compile &#39;%h1= @title&#39;
+html = tmpl title: &#39;Haml Coffee rocks!&#39;
 </p>
 <pre><code>
 will create the HTML `&lt;h1&gt;Haml Coffee rocks!&lt;/h1&gt;`.
@@ -91,10 +101,12 @@ will create the HTML `&lt;h1&gt;Haml Coffee rocks!&lt;/h1&gt;`.
 The `compile` function can take the compiler options as second parameter to customize the template function:
 
 ```coffee-script
-hamlc.compile &apos;%h1= @title&apos;
+hamlc.compile &#39;%h1= @title&#39;
   cleanValue: false
   escapeHtml: false</code></pre>
-<p>See the <a href="#compiler-options">compiler options</a> for detailed information about all the available options.
+<p>See the <a href="#compiler-options">compiler options</a> for detailed information about all the available options and browse
+the <a href="https://github.com/netzpirat/codo">codo</a> generated
+<a href="http://9elements.github.com/haml-coffee/">Haml-Coffee API documentation</a>.
 
 </p>
 <p><a name="using-with-express" />
@@ -104,12 +116,12 @@ hamlc.compile &apos;%h1= @title&apos;
 
 </p>
 <p>```coffee-script
-express = require &apos;express&apos;
-hamlc = require &apos;haml-coffee&apos;
+express = require &#39;express&#39;
+hamlc = require &#39;haml-coffee&#39;
 
 </p>
 <p>app = express.createServer()
-app.register &apos;.hamlc&apos;, hamlc
+app.register &#39;.hamlc&#39;, hamlc
 </p>
 <pre><code>
 Express uses a layout file `layout.hamlc` by default and you have to insert the rendered view body into the layout like
@@ -125,35 +137,35 @@ this:
 
 </p>
 <pre><code class="haml">%h1= &quot;Welcome #{ @name }&quot;
-%p You&apos;ve rendered your first Haml Coffee view.</code></pre>
+%p You&#39;ve rendered your first Haml Coffee view.</code></pre>
 <p>that you can render with:
 
 </p>
 <p>```coffee-script
-app.get &apos;/&apos;, (req, res) -&gt;
-  res.render &apos;index.hamlc&apos;, name: &apos;Express user&apos;
+app.get &#39;/&#39;, (req, res) -&gt;
+  res.render &#39;index.hamlc&#39;, name: &#39;Express user&#39;
 </p>
 <pre><code>
 You can also turn off the layout rendering by configure the `view options`:
 
 ```coffee-script
-app.set &apos;view options&apos;, layout: false</code></pre>
+app.set &#39;view options&#39;, layout: false</code></pre>
 <p>See the <a href="#compiler-options">compiler options</a> for detailed information about all the available options.
 
 </p>
-<p>It&apos;s possible to use Haml Coffee as the default template engine by setting the <code>view engine</code>:
+<p>It&#39;s possible to use Haml Coffee as the default template engine by setting the <code>view engine</code>:
 
 </p>
 <p>```coffee-script
 app.configure -&gt;
-  app.set &apos;view engine&apos;, &apos;hamlc&apos;
+  app.set &#39;view engine&#39;, &#39;hamlc&#39;
 </p>
 <pre><code>
 which allows you to omit the `.hamlc` extension when rendering a template:
 
 ```coffee-script
-app.get &apos;/&apos;, (req, res) -&gt;
-  res.render &apos;index&apos;, name: &apos;Express user&apos;</code></pre>
+app.get &#39;/&#39;, (req, res) -&gt;
+  res.render &#39;index&#39;, name: &#39;Express user&#39;</code></pre>
 <p>You can read more about the view rendering in the
 <a href="http://expressjs.com/guide.html#view-rendering">Express documentation</a>.
 
@@ -219,19 +231,19 @@ the <code>-n</code>/<code>--namespace</code> argument:
 <p>Each template must have a unique name under which it can be addressed. By default the template name is derived from the
 template file name by stripping off all extensions and remove illegal characters. Directory names are converted to
 nested namespaces under the default namespace. For example, a template named <code>user/show-admin.html.haml</code> will result in
-a template that can be accessed by <code>window.HAML[&apos;user/show_admin&apos;]</code>.
+a template that can be accessed by <code>window.HAML[&#39;user/show_admin&#39;]</code>.
 
 </p>
 <p>Given the <code>-b</code>/<code>--basename</code> argument, the deduced template name will not include the path to the template. For example,
 a template named <code>user/show-admin.html.haml</code> will result in a template that can be accessed by
-<code>window.HAML[&apos;show_admin&apos;]</code> instead of <code>window.HAML[&apos;user/show_admin&apos;]</code>.
+<code>window.HAML[&#39;show_admin&#39;]</code> instead of <code>window.HAML[&#39;user/show_admin&#39;]</code>.
 
 </p>
 <p>With the <code>-t</code>/<code>--template</code> argument you can set a template name manually:
 
 </p>
 <pre><code class="bash">$ haml-coffee -i template.haml -n exports.JST -t other</code></pre>
-<p>This will result in a template that can be accessed by <code>exports.JST[&apos;other&apos;]</code>.
+<p>This will result in a template that can be accessed by <code>exports.JST[&#39;other&#39;]</code>.
 
 </p>
 <p><a name="haml-support" />
@@ -266,11 +278,11 @@ details.
 <p>Haml Coffee supports both Ruby 1.8 and Ruby 1.9 style attributes. So the following Ruby 1.8 style attribute
 
 </p>
-<pre><code class="haml">%a{ :href =&gt; &apos;http://haml-lang.com/&apos; } Haml</code></pre>
+<pre><code class="haml">%a{ :href =&gt; &#39;http://haml-lang.com/&#39; } Haml</code></pre>
 <p>can also be written in Ruby 1.9 style:
 
 </p>
-<pre><code class="haml">%a{ href: &apos;http://haml-lang.com/&apos; } Haml</code></pre>
+<pre><code class="haml">%a{ href: &#39;http://haml-lang.com/&#39; } Haml</code></pre>
 <h3>Helpers</h3>
 <p>Haml Coffee supports a small subset of the Ruby Haml <a href="http://haml-lang.com/docs/yardoc/Haml/Helpers.html">helpers</a>:
 
@@ -279,34 +291,34 @@ details.
 <p>Surrounds a block of Haml code with strings, with no whitespace in between.
 
 </p>
-<pre><code class="haml">= surround &apos;(&apos;, &apos;)&apos;, -&gt;
+<pre><code class="haml">= surround &#39;(&#39;, &#39;)&#39;, -&gt;
   %a{:href =&gt; &quot;food&quot;} chicken</code></pre>
 <p>produces the HTML output
 
 </p>
-<pre><code class="html">(&lt;a href=&apos;food&apos;&gt;chicken&lt;/a&gt;)</code></pre>
+<pre><code class="html">(&lt;a href=&#39;food&#39;&gt;chicken&lt;/a&gt;)</code></pre>
 <h4>Succeed</h4>
 <p>Appends a string to the end of a Haml block, with no whitespace between.
 
 </p>
 <pre><code class="haml">click
-= succeed &apos;.&apos;, -&gt;
+= succeed &#39;.&#39;, -&gt;
   %a{:href=&gt;&quot;thing&quot;} here</code></pre>
 <p>produces the HTML output
 
 </p>
 <pre><code class="html">click
-&lt;a href=&apos;thing&apos;&gt;here&lt;/a&gt;.</code></pre>
+&lt;a href=&#39;thing&#39;&gt;here&lt;/a&gt;.</code></pre>
 <h4>Precede</h4>
 <p>Prepends a string to the beginning of a Haml block, with no whitespace between.
 
 </p>
-<pre><code class="haml">= precede &apos;*&apos;, -&gt;
+<pre><code class="haml">= precede &#39;*&#39;, -&gt;
   %span.small Not really</code></pre>
 <p>produces the HTML output
 
 </p>
-<pre><code class="html">*&lt;span class=&apos;small&apos;&gt;Not really&lt;/span&gt;</code></pre>
+<pre><code class="html">*&lt;span class=&#39;small&#39;&gt;Not really&lt;/span&gt;</code></pre>
 <p><a name="coffee-script-support" />
 </p>
 <h2>CoffeeScript support</h2>
@@ -314,13 +326,13 @@ details.
 use CoffeeScript instead of Ruby in your Haml tags and the attributes.
 
 </p>
-<p><strong>It&apos;s not recommended to put too much logic into the template.</strong>
+<p><strong>It&#39;s not recommended to put too much logic into the template.</strong>
 
 </p>
 <p><a name="coffee-script-attributes" />
 </p>
 <h3>Attributes</h3>
-<p>When you define an attribute value without putting it into quotes (single or double quotes), it&apos;s considered to be
+<p>When you define an attribute value without putting it into quotes (single or double quotes), it&#39;s considered to be
 CoffeeScript code to be run at render time. By default, attributes values from CoffeeScript code are escaped before
 inserting into the document. You can change this behaviour by setting the appropriate compiler option.
 
@@ -328,7 +340,7 @@ inserting into the document. You can change this behaviour by setting the approp
 <p>HTML style attributes are the most limited and can only assign a simple variable:
 
 </p>
-<pre><code class="haml">%img(src=&apos;/images/demo.png&apos; width=@width height=@height alt=alt)</code></pre>
+<pre><code class="haml">%img(src=&#39;/images/demo.png&#39; width=@width height=@height alt=alt)</code></pre>
 <p>Both the <code>@width</code> and <code>@height</code> values must be passed as locals when rendering the template and <code>alt</code> must be defined
 before the <code>%img</code> tag.
 
@@ -337,17 +349,17 @@ before the <code>%img</code> tag.
 
 </p>
 <pre><code class="haml">%header
-  %user{ :class =&gt; App.currentUser.get(&apos;status&apos;) }= App.currentUser.getDisplayName()</code></pre>
+  %user{ :class =&gt; App.currentUser.get(&#39;status&#39;) }= App.currentUser.getDisplayName()</code></pre>
 <p>Attribute definitions are also supported in the Ruby 1.9 style:
 
 </p>
 <pre><code class="haml">%header
-  %user{ class: App.currentUser.get(&apos;status&apos;) }= App.currentUser.getDisplayName()</code></pre>
+  %user{ class: App.currentUser.get(&#39;status&#39;) }= App.currentUser.getDisplayName()</code></pre>
 <p>More fancy stuff can be done when use interpolation within a double quoted attribute value:
 
 </p>
 <pre><code class="haml">%header
-  %user{ class: &quot;#{ if @user.get(&apos;roles&apos;).indexOf(&apos;admin&apos;) is -1 then &apos;normal&apos; else &apos;admin&apos; }&quot; }= @user.getDisplayName()</code></pre>
+  %user{ class: &quot;#{ if @user.get(&#39;roles&#39;).indexOf(&#39;admin&#39;) is -1 then &#39;normal&#39; else &#39;admin&#39; }&quot; }= @user.getDisplayName()</code></pre>
 <p><em>But think about it twice before putting such fancy stuff into your template, there are better places like models,
 controllers or helpers to put heavy logic into.</em>
 
@@ -356,8 +368,8 @@ controllers or helpers to put heavy logic into.</em>
 them properly:
 
 </p>
-<pre><code class="haml">%input#password.hint{ type: &apos;password&apos;, name: &apos;registration[password]&apos;,
-                      data: { hint: &apos;Something very important&apos;, align: &apos;left&apos; } }</code></pre>
+<pre><code class="haml">%input#password.hint{ type: &#39;password&#39;, name: &#39;registration[password]&#39;,
+                      data: { hint: &#39;Something very important&#39;, align: &#39;left&#39; } }</code></pre>
 <p>In the above example you also see the usage for generating HTML5 data attributes.
 
 </p>
@@ -411,7 +423,7 @@ details. Haml Coffee implements the same functionality like Ruby Haml, only for 
 
 </p>
 <pre><code class="haml">= postProcess -&gt;
-  %a{ href: &apos;/&apos; }</code></pre>
+  %a{ href: &#39;/&#39; }</code></pre>
 <p><a name="coffee-script-filter" />
 </p>
 <h3>CoffeeScript filter</h3>
@@ -419,15 +431,15 @@ details. Haml Coffee implements the same functionality like Ruby Haml, only for 
 provided by Ruby Haml, Haml Coffee has a <code>:coffeescript</code> filter.
 
 </p>
-<p>The content of the <code>:coffeescript</code> filter is run when the template is rendered and doesn&apos;t output anything into the
-resulting document. This comes in handy when you have code to run over multiple lines and don&apos;t want to prefix each line
+<p>The content of the <code>:coffeescript</code> filter is run when the template is rendered and doesn&#39;t output anything into the
+resulting document. This comes in handy when you have code to run over multiple lines and don&#39;t want to prefix each line
 with <code>-</code>:
 
 </p>
 <pre><code class="haml">%body
   :coffeescript
-    tags = [&apos;CoffeeScript&apos;, &apos;Haml&apos;]
-    project = &apos;Haml Coffee&apos;
+    tags = [&#39;CoffeeScript&#39;, &#39;Haml&#39;]
+    project = &#39;Haml Coffee&#39;
   %h2= project
   %ul
     - for tag in tags
@@ -452,7 +464,7 @@ use the <code>--disable-html-escaping</code> argument. You can see a list of all
 </p>
 <h4>Output format</h4>
 <ul>
-<li>Name: &apos;format&apos;</li>
+<li>Name: &#39;format&#39;</li>
 <li>Type: <code>String</code></li>
 <li>Default: <code>html5</code></li>
 </ul>
@@ -475,7 +487,7 @@ use the <code>--disable-html-escaping</code> argument. You can see a list of all
 <li>Default: <code>false</code></li>
 </ul>
 <p>All generated HTML tags are properly indented by default, so the output looks nice. This can be helpful when debugging.
-You can skip the indention by setting the <code>uglify</code> option to false. This save you some bytes and you&apos;ll have increased
+You can skip the indention by setting the <code>uglify</code> option to false. This save you some bytes and you&#39;ll have increased
 rendering speed.
 
 </p>
@@ -485,7 +497,7 @@ rendering speed.
 <li>Type: <code>Boolean</code></li>
 <li>Default: <code>true</code></li>
 </ul>
-<p>The reserved HTML characters <code>&quot;</code>, <code>&apos;</code>, <code>&amp;</code>, <code>&lt;</code> and <code>&gt;</code> are converted to their HTML entities by default when they are
+<p>The reserved HTML characters <code>&quot;</code>, <code>&#39;</code>, <code>&amp;</code>, <code>&lt;</code> and <code>&gt;</code> are converted to their HTML entities by default when they are
 inserted into the HTML document from evaluated CoffeeScript.
 
 </p>
@@ -500,7 +512,7 @@ inserted into the HTML document from evaluated CoffeeScript.
 <li>Default: <code>true</code></li>
 </ul>
 <p>All HTML attributes that are generated by evaluating CoffeeScript are also escaped by default. You can turn of HTML
-escaping of the attributes only by setting <code>escapeAttributes</code> to false. You can&apos;t change this behaviour in the template
+escaping of the attributes only by setting <code>escapeAttributes</code> to false. You can&#39;t change this behaviour in the template
 since there is no Haml markup for this to instruct the compiler to change the escaping mode.
 
 </p>
@@ -570,7 +582,7 @@ are good reasons to do so:
 <p><a name="development-information" />
 </p>
 <h2>Development information</h2>
-<p>You&apos;ll need the latest version of <code>node.js</code>, <code>npm</code>, <code>coffee-script</code> and <code>jasmine-node</code> to run everything. Start
+<p>You&#39;ll need the latest version of <code>node.js</code>, <code>npm</code>, <code>coffee-script</code> and <code>jasmine-node</code> to run everything. Start
 the CoffeeScript compilation in the project root directory by running:
 
 </p>
@@ -621,7 +633,7 @@ instead of crawling through the commit history.
 </p>
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
-&apos;Software&apos;), to deal in the Software without restriction, including
+&#39;Software&#39;), to deal in the Software without restriction, including
 without limitation the rights to use, copy, modify, merge, publish,
 distribute, sublicense, and/or sell copies of the Software, and to
 permit persons to whom the Software is furnished to do so, subject to
@@ -632,7 +644,7 @@ the following conditions:
 included in all copies or substantial portions of the Software.
 
 </p>
-<p>THE SOFTWARE IS PROVIDED &apos;AS IS&apos;, WITHOUT WARRANTY OF ANY KIND,
+<p>THE SOFTWARE IS PROVIDED &#39;AS IS&#39;, WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
@@ -645,10 +657,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div id='footer'>
   Generated on
-  Fri Feb 17 2012 17:40:29 GMT+0100 (CET)
+  Mon Feb 20 2012 12:10:06 GMT+0100 (CET)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>codo</a>
-  v0.2.1
+  v0.3.0
   (Node.js v0.6.10).
   &#10034;
   <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
