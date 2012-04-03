@@ -13,18 +13,16 @@
     <span class='title'>HamlCoffee</span>
     <nav>
       <ul>
-        <li class='frames'>
-          (<a class='frames' href='../frames.html'>frames</a>)
-        </li>
         <li class='noframes'>
           (<a class='noframes' href='#'>no frames</a>)
         </li>
       </ul>
     </nav>
     <div id='search'>
-      <a id='class_list_link' href='../class_list.html'>Class List</a>
-      <a id='method_list_link' href='../method_list.html'>Method List</a>
-      <a id='file_list_link' href='../file_list.html'>File List</a>
+      <a id='class_list_link' href='../class_list.html'>Classes</a>
+      <a id='class_list_link' href='../mixin_list.html'>Mixins</a>
+      <a id='method_list_link' href='../method_list.html'>Methods</a>
+      <a id='file_list_link' href='../file_list.html'>Files</a>
     </div>
   </div>
   <iframe id='search_frame'></iframe>
@@ -42,12 +40,7 @@
       </table>
       <h2>Overview</h2>
       <div class='docstring'>
-  <p>The HamlCoffee class is the compiler that parses the source code and creates an syntax tree.
-In a second step the created tree can be rendered into either a JavaScript function or a
-CoffeeScript template.
-
-</p>
-
+  <p>The HamlCoffee class is the compiler that parses the source code and creates an syntax tree. In a second step the created tree can be rendered into either a JavaScript function or a CoffeeScript template. </p> 
 </div>
 <div class='tags'>
 </div>
@@ -147,11 +140,11 @@ CoffeeScript template.
   <li>
     <span class='signature'>
       <a href='#getNodeOptions-instance'>
-        - (Object) <strong>getNodeOptions</strong>(override = {})
+        - (void) <strong>getNodeOptions</strong>(override = {})
       </a>
     </span>
     <span class='desc'>
-      Get the options for creating a node
+      
     </span>
   </li>
   <li>
@@ -262,11 +255,7 @@ CoffeeScript template.
       - (void) <strong>constructor</strong>(options = {})
     </p>
     <div class='docstring'>
-  <p>Construct the HAML Coffee compiler.
-
-
-</p>
-
+  <p>Construct the HAML Coffee compiler. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -384,12 +373,7 @@ CoffeeScript template.
       - (Boolean) <strong>indentChanged</strong>()
     </p>
     <div class='docstring'>
-  <p>Test if the indention level has changed, either
-increased or decreased.
-
-
-</p>
-
+  <p>Test if the indention level has changed, either increased or decreased. </p> 
 </div>
 <div class='tags'>
   <h3>Returns:</h3>
@@ -409,11 +393,7 @@ increased or decreased.
       - (Boolean) <strong>isIndent</strong>()
     </p>
     <div class='docstring'>
-  <p>Test if the indention levels has been increased.
-
-
-</p>
-
+  <p>Test if the indention levels has been increased. </p> 
 </div>
 <div class='tags'>
   <h3>Returns:</h3>
@@ -433,10 +413,7 @@ increased or decreased.
       - (void) <strong>updateTabSize</strong>()
     </p>
     <div class='docstring'>
-  <p>Calculate the indention size
-
-</p>
-
+  <p>Calculate the indention size </p> 
 </div>
 <div class='tags'>
 </div>
@@ -446,10 +423,7 @@ increased or decreased.
       - (void) <strong>updateBlockLevel</strong>()
     </p>
     <div class='docstring'>
-  <p>Update the current block level indention.
-
-</p>
-
+  <p>Update the current block level indention. </p> 
 </div>
 <div class='tags'>
 </div>
@@ -459,11 +433,7 @@ increased or decreased.
       - (void) <strong>updateCodeBlockLevel</strong>(node)
     </p>
     <div class='docstring'>
-  <p>Update the indention level for a code block.
-
-
-</p>
-
+  <p>Update the indention level for a code block. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -484,11 +454,7 @@ increased or decreased.
       - (void) <strong>updateParent</strong>()
     </p>
     <div class='docstring'>
-  <p>Update the parent node. This depends on the indention
-if stays the same, goes one down or on up.
-
-</p>
-
+  <p>Update the parent node. This depends on the indention if stays the same, goes one down or on up. </p> 
 </div>
 <div class='tags'>
 </div>
@@ -498,12 +464,7 @@ if stays the same, goes one down or on up.
       - (void) <strong>pushParent</strong>()
     </p>
     <div class='docstring'>
-  <p>Indention level has been increased:
-Push the current parent node to the stack and make
-the current node the parent node.
-
-</p>
-
+  <p>Indention level has been increased: Push the current parent node to the stack and make the current node the parent node. </p> 
 </div>
 <div class='tags'>
 </div>
@@ -513,48 +474,16 @@ the current node the parent node.
       - (void) <strong>popParent</strong>()
     </p>
     <div class='docstring'>
-  <p>Indention level has been decreased:
-Make the grand parent the current parent.
-
-</p>
-
+  <p>Indention level has been decreased: Make the grand parent the current parent. </p> 
 </div>
 <div class='tags'>
 </div>
   </div>
   <div class='method_details'>
     <p class='signature' id='getNodeOptions-instance'>
-      - (Object) <strong>getNodeOptions</strong>(override = {})
+      - (void) <strong>getNodeOptions</strong>(override = {})
     </p>
-    <div class='docstring'>
-  <p>Get the options for creating a node
-
-
-</p>
-
-</div>
-<div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>override</span>
-      <span class='type'>
-        (<tt>Object</tt>)
-      </span>
-      &mdash;
-      <span class='desc'>the options to override</span>
-    </li>
-  </ul>
-  <h3>Returns:</h3>
-  <ul class='return'>
-    <li>
-      <span class='type'>
-        (<tt>Object</tt>)
-      </span>
-      &mdash;
-      <span class='desc'>the node options</span>
-    </li>
-  </ul>
+    <div class='tags'>
 </div>
   </div>
   <div class='method_details'>
@@ -562,15 +491,7 @@ Make the grand parent the current parent.
       - (Node) <strong>nodeFactory</strong>(expression = '')
     </p>
     <div class='docstring'>
-  <p>Get the matching node type for the given expression. This
-is also responsible for creating the nested tree structure,
-since there is an exception for creating the node tree:
-Within a filter expression, any empty line without indention
-is added as child to the previous filter expression.
-
-
-</p>
-
+  <p>Get the matching node type for the given expression. This is also responsible for creating the nested tree structure, since there is an exception for creating the node tree: Within a filter expression, any empty line without indention is added as child to the previous filter expression. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -601,19 +522,7 @@ is added as child to the previous filter expression.
       - (void) <strong>parse</strong>(source = '')
     </p>
     <div class='docstring'>
-  <p>Parse the given source and create the nested node
-structure. This parses the source code line be line, but
-looks ahead to find lines that should be merged into the current line.
-This is needed for splitting Haml attributes over several lines
-and also for the different types of filters.
-
-</p>
-<p>Parsing does not create an output, it creates the syntax tree in the
-compiler. To get the template, use <code>#render</code>.
-
-
-</p>
-
+  <p>Parse the given source and create the nested node structure. This parses the source code line be line, but looks ahead to find lines that should be merged into the current line. This is needed for splitting Haml attributes over several lines and also for the different types of filters. </p> <p>Parsing does not create an output, it creates the syntax tree in the compiler. To get the template, use <code>#render</code>. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -634,11 +543,7 @@ compiler. To get the template, use <code>#render</code>.
       - (void) <strong>evaluate</strong>(node)
     </p>
     <div class='docstring'>
-  <p>Evaluate the parsed tree
-
-
-</p>
-
+  <p>Evaluate the parsed tree </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -659,11 +564,7 @@ compiler. To get the template, use <code>#render</code>.
       - (void) <strong>render</strong>(templateName, namespace = 'window.HAML')
     </p>
     <div class='docstring'>
-  <p>Render the parsed source code as CoffeeScript template.
-
-
-</p>
-
+  <p>Render the parsed source code as CoffeeScript template. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -692,12 +593,7 @@ compiler. To get the template, use <code>#render</code>.
       - (String) <strong>precompile</strong>()
     </p>
     <div class='docstring'>
-  <p>Pre-compiles the parsed source and generates
-the function source code.
-
-
-</p>
-
+  <p>Pre-compiles the parsed source and generates the function source code. </p> 
 </div>
 <div class='tags'>
   <h3>Returns:</h3>
@@ -717,15 +613,7 @@ the function source code.
       - (String) <strong>createCode</strong>()
     </p>
     <div class='docstring'>
-  <p>Create the CoffeeScript code for the template.
-
-</p>
-<p>This gets an array of all lines to be rendered in
-the correct sequence.
-
-
-</p>
-
+  <p>Create the CoffeeScript code for the template. </p> <p>This gets an array of all lines to be rendered in the correct sequence. </p> 
 </div>
 <div class='tags'>
   <h3>Returns:</h3>
@@ -745,11 +633,7 @@ the correct sequence.
       - (void) <strong>getBuffer</strong>(level)
     </p>
     <div class='docstring'>
-  <p>Get the code buffer identifer
-
-
-</p>
-
+  <p>Get the code buffer identifer </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -770,12 +654,7 @@ the correct sequence.
       - (Array&lt;Object&gt;) <strong>combineText</strong>(lines)
     </p>
     <div class='docstring'>
-  <p>Optimize the lines to be rendered by combining subsequent text
-nodes that are on the same code line indention into a single line.
-
-
-</p>
-
+  <p>Optimize the lines to be rendered by combining subsequent text nodes that are on the same code line indention into a single line. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -806,22 +685,7 @@ nodes that are on the same code line indention into a single line.
       - (String) <strong>convertBooleans</strong>(code)
     </p>
     <div class='docstring'>
-  <p>Adds a boolean convert logic that changes boolean attribute
-values depending on the output format.
-
-</p>
-<p>With the XHTML format, an attribute <code>checked=&#39;true&#39;</code> will be
-converted to <code>checked=&#39;checked&#39;</code> and <code>checked=&#39;false&#39;</code> will
-be completely removed.
-
-</p>
-<p>With the HTML4 and HTML5 format, an attribute <code>checked=&#39;true&#39;</code>
-will be converted to <code>checked</code> and <code>checked=&#39;false&#39;</code> will
-be completely removed.
-
-
-</p>
-
+  <p>Adds a boolean convert logic that changes boolean attribute values depending on the output format. </p> <p>With the XHTML format, an attribute <code>checked=&#39;true&#39;</code> will be converted to <code>checked=&#39;checked&#39;</code> and <code>checked=&#39;false&#39;</code> will be completely removed. </p> <p>With the HTML4 and HTML5 format, an attribute <code>checked=&#39;true&#39;</code> will be converted to <code>checked</code> and <code>checked=&#39;false&#39;</code> will be completely removed. </p> 
 </div>
 <div class='tags'>
   <h3>Returns:</h3>
@@ -841,20 +705,7 @@ be completely removed.
       - (String) <strong>cleanupWhitespace</strong>(code)
     </p>
     <div class='docstring'>
-  <p>Adds whitespace cleanup function when needed by the
-template. The cleanup must be done AFTER the template
-has been rendered.
-
-</p>
-<p>The detection is based on hidden unicode characters that
-are placed as marker into the template:
-
-</p>
-<ul>
-<li><code>\u0091</code> Cleanup surrounding whitespace to the left</li>
-<li><code>\u0092</code> Cleanup surrounding whitespace to the right</li>
-</ul>
-
+  <p>Adds whitespace cleanup function when needed by the template. The cleanup must be done AFTER the template has been rendered. </p> <p>The detection is based on hidden unicode characters that are placed as marker into the template: </p> <ul> <li><code>\u0091</code> Cleanup surrounding whitespace to the left</li> <li><code>\u0092</code> Cleanup surrounding whitespace to the right</li> </ul> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -884,11 +735,11 @@ are placed as marker into the template:
     </div>
     <div id='footer'>
   Generated on
-  Sun Feb 26 2012 12:33:24 GMT+0100 (CET)
+  Tue Apr 03 2012 19:23:34 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>codo</a>
-  v0.4.1
-  (Node.js v0.6.11).
+  v0.6.0
+  (Node.js v0.6.14).
   &#10034;
   <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
   &#10034;

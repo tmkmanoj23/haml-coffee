@@ -13,18 +13,16 @@
     <span class='title'>Filter</span>
     <nav>
       <ul>
-        <li class='frames'>
-          (<a class='frames' href='../frames.html'>frames</a>)
-        </li>
         <li class='noframes'>
           (<a class='noframes' href='#'>no frames</a>)
         </li>
       </ul>
     </nav>
     <div id='search'>
-      <a id='class_list_link' href='../class_list.html'>Class List</a>
-      <a id='method_list_link' href='../method_list.html'>Method List</a>
-      <a id='file_list_link' href='../file_list.html'>File List</a>
+      <a id='class_list_link' href='../class_list.html'>Classes</a>
+      <a id='class_list_link' href='../mixin_list.html'>Mixins</a>
+      <a id='method_list_link' href='../method_list.html'>Methods</a>
+      <a id='file_list_link' href='../file_list.html'>Files</a>
     </div>
   </div>
   <iframe id='search_frame'></iframe>
@@ -36,34 +34,19 @@
       </h1>
       <table class='box'>
         <tr>
+          <td>Defined in:</td>
+          <td>src/nodes/filter.coffee</td>
+        </tr>
+        <tr>
           <td>Inherits:</td>
           <td>
             <a href="../classes/Node.html">Node</a>
           </td>
         </tr>
-        <tr>
-          <td>Defined in:</td>
-          <td>src/nodes/filter.coffee</td>
-        </tr>
       </table>
       <h2>Overview</h2>
       <div class='docstring'>
-  <p>Filter node for built-in Haml filters:
-
-</p>
-<ul>
-<li><code>:escaped</code></li>
-<li><code>:preserve</code></li>
-<li><code>:plain</code></li>
-<li><code>:css</code></li>
-<li><code>:javascript</code></li>
-<li><code>:cdata</code></li>
-</ul>
-<p>Only the top level filter marker is a filter node, containing
-child nodes are text nodes.
-
-</p>
-
+  <p>Filter node for built-in Haml filters: </p> <ul> <li><code>:escaped</code></li> <li><code>:preserve</code></li> <li><code>:plain</code></li> <li><code>:css</code></li> <li><code>:javascript</code></li> <li><code>:cdata</code></li> </ul> <p>Only the top level filter marker is a filter node, containing child nodes are text nodes. </p> 
 </div>
 <div class='tags'>
 </div>
@@ -73,7 +56,7 @@ child nodes are text nodes.
         <a href="../classes/Node.html">Node</a>
       </h3>
       <p class='inherited'>
-                <a href="undefinedclasses/Node.html#CLEAR_WHITESPACE_LEFT-constant">CLEAR_WHITESPACE_LEFT</a>,
+                <a href="../classes/Node.html#CLEAR_WHITESPACE_LEFT-constant">CLEAR_WHITESPACE_LEFT</a>,
         <a href="../classes/Node.html#CLEAR_WHITESPACE_RIGHT-constant">CLEAR_WHITESPACE_RIGHT</a>
       </p>
       <h2>Instance Method Summary</h2>
@@ -109,20 +92,23 @@ child nodes are text nodes.
     </span>
   </li>
 </ul>
+      <h2>
+        <small>Inherited Method Summary</small>
+      </h2>
       <h3 class='inherited'>
         Methods inherited from
         <a href="../classes/Node.html">Node</a>
       </h3>
       <p class='inherited'>
-                <a href="undefinedclasses/Node.html#constructor-instance">#constructor</a>,
-                <a href="undefinedclasses/Node.html#addChild-instance">#addChild</a>,
-                <a href="undefinedclasses/Node.html#getOpener-instance">#getOpener</a>,
-                <a href="undefinedclasses/Node.html#getCloser-instance">#getCloser</a>,
-                <a href="undefinedclasses/Node.html#isPreserved-instance">#isPreserved</a>,
-                <a href="undefinedclasses/Node.html#markText-instance">#markText</a>,
-                <a href="undefinedclasses/Node.html#markRunningCode-instance">#markRunningCode</a>,
-                <a href="undefinedclasses/Node.html#markInsertingCode-instance">#markInsertingCode</a>,
-                <a href="undefinedclasses/Node.html#evaluate-instance">#evaluate</a>,
+                <a href="../classes/Node.html#constructor-instance">#constructor</a>,
+                <a href="../classes/Node.html#addChild-instance">#addChild</a>,
+                <a href="../classes/Node.html#getOpener-instance">#getOpener</a>,
+                <a href="../classes/Node.html#getCloser-instance">#getCloser</a>,
+                <a href="../classes/Node.html#isPreserved-instance">#isPreserved</a>,
+                <a href="../classes/Node.html#markText-instance">#markText</a>,
+                <a href="../classes/Node.html#markRunningCode-instance">#markRunningCode</a>,
+                <a href="../classes/Node.html#markInsertingCode-instance">#markInsertingCode</a>,
+                <a href="../classes/Node.html#evaluate-instance">#evaluate</a>,
         <a href="../classes/Node.html#render-instance">#render</a>
       </p>
       <h2>Instance Method Details</h2>
@@ -132,10 +118,7 @@ child nodes are text nodes.
       - (void) <strong>evaluate</strong>()
     </p>
     <div class='docstring'>
-  <p>Evaluate the Haml filters
-
-</p>
-
+  <p>Evaluate the Haml filters </p> 
 </div>
 <div class='tags'>
 </div>
@@ -145,10 +128,7 @@ child nodes are text nodes.
       - (void) <strong>render</strong>()
     </p>
     <div class='docstring'>
-  <p>Render the filter
-
-</p>
-
+  <p>Render the filter </p> 
 </div>
 <div class='tags'>
 </div>
@@ -158,11 +138,7 @@ child nodes are text nodes.
       - (void) <strong>renderFilterContent</strong>(indent, output, type = 'text')
     </p>
     <div class='docstring'>
-  <p>Render the child content, but omits empty lines at the end
-
-
-</p>
-
+  <p>Render the child content, but omits empty lines at the end </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -190,11 +166,11 @@ child nodes are text nodes.
     </div>
     <div id='footer'>
   Generated on
-  Sun Feb 26 2012 12:33:24 GMT+0100 (CET)
+  Tue Apr 03 2012 19:23:34 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>codo</a>
-  v0.4.1
-  (Node.js v0.6.11).
+  v0.6.0
+  (Node.js v0.6.14).
   &#10034;
   <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
   &#10034;

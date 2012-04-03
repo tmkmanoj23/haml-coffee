@@ -13,18 +13,16 @@
     <span class='title'>Haml</span>
     <nav>
       <ul>
-        <li class='frames'>
-          (<a class='frames' href='../frames.html'>frames</a>)
-        </li>
         <li class='noframes'>
           (<a class='noframes' href='#'>no frames</a>)
         </li>
       </ul>
     </nav>
     <div id='search'>
-      <a id='class_list_link' href='../class_list.html'>Class List</a>
-      <a id='method_list_link' href='../method_list.html'>Method List</a>
-      <a id='file_list_link' href='../file_list.html'>File List</a>
+      <a id='class_list_link' href='../class_list.html'>Classes</a>
+      <a id='class_list_link' href='../mixin_list.html'>Mixins</a>
+      <a id='method_list_link' href='../method_list.html'>Methods</a>
+      <a id='file_list_link' href='../file_list.html'>Files</a>
     </div>
   </div>
   <iframe id='search_frame'></iframe>
@@ -36,38 +34,19 @@
       </h1>
       <table class='box'>
         <tr>
+          <td>Defined in:</td>
+          <td>src/nodes/haml.coffee</td>
+        </tr>
+        <tr>
           <td>Inherits:</td>
           <td>
             <a href="../classes/Node.html">Node</a>
           </td>
         </tr>
-        <tr>
-          <td>Defined in:</td>
-          <td>src/nodes/haml.coffee</td>
-        </tr>
       </table>
       <h2>Overview</h2>
       <div class='docstring'>
-  <p>HAML node that contains Haml a haml tag that can have attributes
-and a text or code assignment. There are shortcuts for id and class
-generation and some special logic for merging attributes into existing
-ids and classes.
-
-
-
-
-</p>
-<p>Haml HTML attributes are very limited and allows only simple string
-(with interpolation) or variable assignment to an attribute.
-
-
-</p>
-<p>Ruby HTML attributes are more powerful and allows in addition to the
-HTML attributes function calls:
-
-
-</p>
-
+  <p>HAML node that contains Haml a haml tag that can have attributes and a text or code assignment. There are shortcuts for id and class generation and some special logic for merging attributes into existing ids and classes. </p> <p>Haml HTML attributes are very limited and allows only simple string (with interpolation) or variable assignment to an attribute. </p> <p>Ruby HTML attributes are more powerful and allows in addition to the HTML attributes function calls: </p> 
   <div class='examples'>
     <h3>Examples:</h3>
     <h4>
@@ -105,7 +84,7 @@ HTML attributes function calls:
         <a href="../classes/Node.html">Node</a>
       </h3>
       <p class='inherited'>
-                <a href="undefinedclasses/Node.html#CLEAR_WHITESPACE_LEFT-constant">CLEAR_WHITESPACE_LEFT</a>,
+                <a href="../classes/Node.html#CLEAR_WHITESPACE_LEFT-constant">CLEAR_WHITESPACE_LEFT</a>,
         <a href="../classes/Node.html#CLEAR_WHITESPACE_RIGHT-constant">CLEAR_WHITESPACE_RIGHT</a>
       </p>
       <h2>Instance Method Summary</h2>
@@ -201,20 +180,23 @@ HTML attributes function calls:
     </span>
   </li>
 </ul>
+      <h2>
+        <small>Inherited Method Summary</small>
+      </h2>
       <h3 class='inherited'>
         Methods inherited from
         <a href="../classes/Node.html">Node</a>
       </h3>
       <p class='inherited'>
-                <a href="undefinedclasses/Node.html#constructor-instance">#constructor</a>,
-                <a href="undefinedclasses/Node.html#addChild-instance">#addChild</a>,
-                <a href="undefinedclasses/Node.html#getOpener-instance">#getOpener</a>,
-                <a href="undefinedclasses/Node.html#getCloser-instance">#getCloser</a>,
-                <a href="undefinedclasses/Node.html#isPreserved-instance">#isPreserved</a>,
-                <a href="undefinedclasses/Node.html#markText-instance">#markText</a>,
-                <a href="undefinedclasses/Node.html#markRunningCode-instance">#markRunningCode</a>,
-                <a href="undefinedclasses/Node.html#markInsertingCode-instance">#markInsertingCode</a>,
-                <a href="undefinedclasses/Node.html#evaluate-instance">#evaluate</a>,
+                <a href="../classes/Node.html#constructor-instance">#constructor</a>,
+                <a href="../classes/Node.html#addChild-instance">#addChild</a>,
+                <a href="../classes/Node.html#getOpener-instance">#getOpener</a>,
+                <a href="../classes/Node.html#getCloser-instance">#getCloser</a>,
+                <a href="../classes/Node.html#isPreserved-instance">#isPreserved</a>,
+                <a href="../classes/Node.html#markText-instance">#markText</a>,
+                <a href="../classes/Node.html#markRunningCode-instance">#markRunningCode</a>,
+                <a href="../classes/Node.html#markInsertingCode-instance">#markInsertingCode</a>,
+                <a href="../classes/Node.html#evaluate-instance">#evaluate</a>,
         <a href="../classes/Node.html#render-instance">#render</a>
       </p>
       <h2>Instance Method Details</h2>
@@ -224,11 +206,7 @@ HTML attributes function calls:
       - (void) <strong>evaluate</strong>()
     </p>
     <div class='docstring'>
-  <p>Evaluate the node content and store the opener tag
-and the closer tag if applicable.
-
-</p>
-
+  <p>Evaluate the node content and store the opener tag and the closer tag if applicable. </p> 
 </div>
 <div class='tags'>
 </div>
@@ -238,16 +216,7 @@ and the closer tag if applicable.
       - (Object) <strong>parseExpression</strong>(exp)
     </p>
     <div class='docstring'>
-  <p>Parses the expression and detect the tag, attributes
-and any assignment. In addition class and id cleanup
-is performed according the the Haml spec:
-
-</p>
-<ul>
-<li>Classes are merged together</li>
-<li>When multiple ids are provided, the last one is taken, except they are defined in shortcut notation and attribute notation. In this case, they will be combined, separated by underscore.</li>
-</ul>
-
+  <p>Parses the expression and detect the tag, attributes and any assignment. In addition class and id cleanup is performed according the the Haml spec: </p> <ul> <li>Classes are merged together</li> <li>When multiple ids are provided, the last one is taken, except they are defined in shortcut notation and attribute notation. In this case, they will be combined, separated by underscore.</li> </ul> 
   <div class='examples'>
     <h3>Examples:</h3>
     <h4>
@@ -285,16 +254,7 @@ is performed according the the Haml spec:
       - (Object) <strong>parseTag</strong>(exp)
     </p>
     <div class='docstring'>
-  <p>Parse a tag line. This recognizes DocType tags <code>!!!</code> and
-HAML tags like <code>#id.class text</code>.
-
-</p>
-<p>It also parses the code assignment <code>=</code>, <code>}=</code> and <code>)=</code> or
-inline text and the whitespace removal markers <code>&lt;</code> and <code>&gt;</code>.
-
-
-</p>
-
+  <p>Parse a tag line. This recognizes DocType tags <code>!!!</code> and HAML tags like <code>#id.class text</code>. </p> <p>It also parses the code assignment <code>=</code>, <code>}=</code> and <code>)=</code> or inline text and the whitespace removal markers <code>&lt;</code> and <code>&gt;</code>. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -325,17 +285,7 @@ inline text and the whitespace removal markers <code>&lt;</code> and <code>&gt;<
       - (Array) <strong>parseAttributes</strong>(exp)
     </p>
     <div class='docstring'>
-  <p>Parse attributes either in Ruby style <code>%tag<a href=' :attr =&gt; &#39;value&#39; '>undefined</a></code>
-or HTML style <code>%tag(attr=&#39;value)</code>. Both styles can be mixed:
-<code>%tag(attr=&#39;value)<a href=' :attr =&gt; &#39;value&#39; '>undefined</a></code>.
-
-</p>
-<p>This takes also care of proper attribute interpolation, unwrapping
-quoted keys and value, e.g. <code>&#39;a&#39; =&gt; &#39;hello&#39;</code> becomes <code>a =&gt; hello</code>.
-
-
-</p>
-
+  <p>Parse attributes either in Ruby style <code>%tag{ :attr =&gt; &#39;value&#39; }</code> or HTML style <code>%tag(attr=&#39;value)</code>. Both styles can be mixed: <code>%tag(attr=&#39;value){ :attr =&gt; &#39;value&#39; }</code>. </p> <p>This takes also care of proper attribute interpolation, unwrapping quoted keys and value, e.g. <code>&#39;a&#39; =&gt; &#39;hello&#39;</code> becomes <code>a =&gt; hello</code>. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -366,12 +316,7 @@ quoted keys and value, e.g. <code>&#39;a&#39; =&gt; &#39;hello&#39;</code> becom
       - (Array&lt;String, Array&gt;) <strong>getDataAttributes</strong>(exp)
     </p>
     <div class='docstring'>
-  <p>Extracts the data attributes.
-
-
-
-</p>
-
+  <p>Extracts the data attributes. </p> 
   <div class='examples'>
     <h3>Examples:</h3>
     <h4>
@@ -409,20 +354,7 @@ quoted keys and value, e.g. <code>&#39;a&#39; =&gt; &#39;hello&#39;</code> becom
       - (String) <strong>buildHtmlTagPrefix</strong>(tokens)
     </p>
     <div class='docstring'>
-  <p>Build the HTML tag prefix by concatenating all the
-tag information together. The result is an unfinished
-html tag that must be further processed:
-
-
-</p>
-<p>The Haml spec sorts the <code>class</code> names, even when they
-contain interpolated classes. This is supported by
-sorting classes at template render time.
-
-
-
-</p>
-
+  <p>Build the HTML tag prefix by concatenating all the tag information together. The result is an unfinished html tag that must be further processed: </p> <p>The Haml spec sorts the <code>class</code> names, even when they contain interpolated classes. This is supported by sorting classes at template render time. </p> 
   <div class='examples'>
     <h3>Examples:</h3>
     <h4>
@@ -464,12 +396,7 @@ sorting classes at template render time.
       - (String) <strong>quoteAttributeValue</strong>(value)
     </p>
     <div class='docstring'>
-  <p>Quote the attribute value, depending on its
-content.
-
-
-</p>
-
+  <p>Quote the attribute value, depending on its content. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -500,12 +427,7 @@ content.
       - (String) <strong>buildDocType</strong>(doctype)
     </p>
     <div class='docstring'>
-  <p>Build the DocType string depending on the <code>!!!</code> token
-and the currently used HTML format.
-
-
-</p>
-
+  <p>Build the DocType string depending on the <code>!!!</code> token and the currently used HTML format. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -536,13 +458,7 @@ and the currently used HTML format.
       - (Boolean) <strong>isNotSelfClosing</strong>(tag)
     </p>
     <div class='docstring'>
-  <p>Test if the given tag is a non-self enclosing tag, by
-matching against a fixed tag list or parse for the self
-closing slash <code>/</code> at the end.
-
-
-</p>
-
+  <p>Test if the given tag is a non-self enclosing tag, by matching against a fixed tag list or parse for the self closing slash <code>/</code> at the end. </p> 
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -572,11 +488,11 @@ closing slash <code>/</code> at the end.
     </div>
     <div id='footer'>
   Generated on
-  Sun Feb 26 2012 12:33:24 GMT+0100 (CET)
+  Tue Apr 03 2012 19:23:34 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>codo</a>
-  v0.4.1
-  (Node.js v0.6.11).
+  v0.6.0
+  (Node.js v0.6.14).
   &#10034;
   <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
   &#10034;
