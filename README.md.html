@@ -104,7 +104,10 @@ frameworks like <a href="http://expressjs.com/">Express</a>.
 </p>
 <h2>Contents</h2>
 <ul>
-<li><a href="#installation">Installation</a></li>
+<li><a href="#installation">Installation</a><ul>
+<li><a href="#installation-integration">Integration</a></li>
+</ul>
+</li>
 <li><a href="#compile-haml-coffee">Compile Haml Coffee</a><ul>
 <li><a href="#using-the-api">Using the API</a></li>
 <li><a href="#using-with-express">Using with Express</a></li>
@@ -132,7 +135,19 @@ frameworks like <a href="http://expressjs.com/">Express</a>.
 
 </p>
 <pre><code class="bash">$ npm install haml-coffee</code></pre>
-<p>If you like to integrate Haml Coffee into the Rails 3.1 asset pipeline, check out
+<p>Please have a look at the <a href="https://github.com/9elements/haml-coffee/blob/master/CHANGELOG.md">CHANGELOG</a> when upgrading to a
+newer Codo version with <code>npm update</code>.
+
+</p>
+<p><a name="installation-integration" />
+</p>
+<h2>Integration</h2>
+<p>If you&#39;re using <a href="https://github.com/maccman/hem">Hem</a> to manage your CommonJS modules,
+use <a href="https://github.com/vojto/hem-haml-coffee">hem-haml-coffee</a>. This is excellent for
+developing your <a href="http://spinejs.com/">Spine</a> application.
+
+</p>
+<p>If you like to integrate Haml Coffee seamless into the Rails asset pipeline, check out
 <a href="https://github.com/netzpirat/haml_coffee_assets">haml_coffee_assets</a>.
 
 </p>
@@ -719,11 +734,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div id='footer'>
   Generated on
-  Wed Apr 04 2012 23:30:45 GMT+0200 (CEST)
+  Thu Apr 19 2012 13:44:59 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v0.6.2
-  (Node.js v0.6.14).
+  (Node.js v0.6.15).
   &#10034;
   Press H to see the keyboard shortcuts
   &#10034;
