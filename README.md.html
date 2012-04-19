@@ -4,9 +4,11 @@
   <title>Haml Coffee Documentation</title>
   <link rel='stylesheet' href='assets/codo.css' type='text/css'>
   <script src='assets/codo.js'></script>
+  <script src='assets/search_data.js'></script>
 </head>
   <body>
-    <div id='header'>
+    <div id='base' data-path=''></div>
+<div id='header'>
   <div id='menu'>
     <a href='class_index.html' title='Index'>Index</a>
     &raquo;
@@ -26,13 +28,26 @@
     </div>
   </div>
   <iframe id='search_frame'></iframe>
+  <div id='fuzzySearch'>
+    <input type='text'>
+    <ol></ol>
+  </div>
   <div id='help'>
+    <p>
+      Quickly fuzzy find classes, mixins, methods, file:
+    </p>
+    <ul>
+      <li>
+        <span>Ctrl-T</span>
+        Open fuzzy finder dialog
+      </li>
+    </ul>
     <p>
       In frame mode you can toggle the list naviation frame on the left side:
     </p>
     <ul>
       <li>
-        <span>L</span>
+        <span>Ctrl-L</span>
         Toggle list view
       </li>
     </ul>
@@ -41,19 +56,19 @@
     </p>
     <ul>
       <li>
-        <span>C</span>
+        <span>Ctrl-C</span>
         Class list
       </li>
       <li>
-        <span>I</span>
+        <span>Ctrl-I</span>
         Mixin list
       </li>
       <li>
-        <span>M</span>
+        <span>Ctrl-M</span>
         Method list
       </li>
       <li>
-        <span>F</span>
+        <span>Ctrl-F</span>
         File list
       </li>
     </ul>
@@ -62,7 +77,7 @@
     </p>
     <ul>
       <li>
-        <span>S</span>
+        <span>Ctrl-S</span>
         Focus search input
       </li>
       <li>
@@ -134,7 +149,7 @@ frameworks like <a href="http://expressjs.com/">Express</a>.
 <p>Haml Coffee is available in NPM and can be installed with:
 
 </p>
-<pre><code class="bash">$ npm install haml-coffee</code></pre>
+<pre><code class="lang-bash">$ npm install haml-coffee</code></pre>
 <p>Please have a look at the <a href="https://github.com/9elements/haml-coffee/blob/master/CHANGELOG.md">CHANGELOG</a> when upgrading to a
 newer Codo version with <code>npm update</code>.
 
@@ -213,7 +228,7 @@ this:
 <p>Now you can create a Haml Coffee view
 
 </p>
-<pre><code class="haml">%h1= &quot;Welcome #{ @name }&quot;
+<pre><code class="lang-haml">%h1= &quot;Welcome #{ @name }&quot;
 %p You&#39;ve rendered your first Haml Coffee view.</code></pre>
 <p>that you can render with:
 
@@ -254,7 +269,7 @@ app.get &#39;/&#39;, (req, res) -&gt;
 compile multiple templates recursively into a single file.
 
 </p>
-<pre><code class="bash">$ haml-coffee
+<pre><code class="lang-bash">$ haml-coffee
 Usage: node haml-coffee
 
 Options:
@@ -275,7 +290,7 @@ Options:
 templates are being searched recursively:
 
 </p>
-<pre><code class="bash">$ haml-coffee -i template.haml</code></pre>
+<pre><code class="lang-bash">$ haml-coffee -i template.haml</code></pre>
 <p>This will generate a template with the same name as the file but the extension changed to <code>.jst</code>. The above command for
 example would generate a template named <code>template.jst</code>.
 
@@ -289,12 +304,12 @@ example would generate a template named <code>template.jst</code>.
 <code>-o</code>/<code>--output</code> argument:
 
 </p>
-<pre><code class="bash">$ haml-coffee -i template.haml -o t.js</code></pre>
+<pre><code class="lang-bash">$ haml-coffee -i template.haml -o t.js</code></pre>
 <p>This creates a template named <code>t.js</code>. You can also set a directory as input and give an output file name for
 concatenating all templates into a single file:
 
 </p>
-<pre><code class="bash">$ haml-coffee -i templates -o all.js</code></pre>
+<pre><code class="lang-bash">$ haml-coffee -i templates -o all.js</code></pre>
 <p>This will create all the templates under the <code>templates</code> directory into a single, combined output file <code>all.js</code>.
 
 </p>
@@ -303,7 +318,7 @@ concatenating all templates into a single file:
 the <code>-n</code>/<code>--namespace</code> argument:
 
 </p>
-<pre><code class="bash">$ haml-coffee -i template.haml -n exports.JST</code></pre>
+<pre><code class="lang-bash">$ haml-coffee -i template.haml -n exports.JST</code></pre>
 <h4>Template name</h4>
 <p>Each template must have a unique name under which it can be addressed. By default the template name is derived from the
 template file name by stripping off all extensions and remove illegal characters. Directory names are converted to
@@ -319,7 +334,7 @@ a template named <code>user/show-admin.html.haml</code> will result in a templat
 <p>With the <code>-t</code>/<code>--template</code> argument you can set a template name manually:
 
 </p>
-<pre><code class="bash">$ haml-coffee -i template.haml -n exports.JST -t other</code></pre>
+<pre><code class="lang-bash">$ haml-coffee -i template.haml -n exports.JST -t other</code></pre>
 <p>This will result in a template that can be accessed by <code>exports.JST[&#39;other&#39;]</code>.
 
 </p>
@@ -355,11 +370,11 @@ details.
 <p>Haml Coffee supports both Ruby 1.8 and Ruby 1.9 style attributes. So the following Ruby 1.8 style attribute
 
 </p>
-<pre><code class="haml">%a{ :href =&gt; &#39;http://haml-lang.com/&#39; } Haml</code></pre>
+<pre><code class="lang-haml">%a{ :href =&gt; &#39;http://haml-lang.com/&#39; } Haml</code></pre>
 <p>can also be written in Ruby 1.9 style:
 
 </p>
-<pre><code class="haml">%a{ href: &#39;http://haml-lang.com/&#39; } Haml</code></pre>
+<pre><code class="lang-haml">%a{ href: &#39;http://haml-lang.com/&#39; } Haml</code></pre>
 <h3>Helpers</h3>
 <p>Haml Coffee supports a small subset of the Ruby Haml <a href="http://haml-lang.com/docs/yardoc/Haml/Helpers.html">helpers</a>:
 
@@ -368,34 +383,34 @@ details.
 <p>Surrounds a block of Haml code with strings, with no whitespace in between.
 
 </p>
-<pre><code class="haml">= surround &#39;(&#39;, &#39;)&#39;, -&gt;
+<pre><code class="lang-haml">= surround &#39;(&#39;, &#39;)&#39;, -&gt;
   %a{:href =&gt; &quot;food&quot;} chicken</code></pre>
 <p>produces the HTML output
 
 </p>
-<pre><code class="html">(&lt;a href=&#39;food&#39;&gt;chicken&lt;/a&gt;)</code></pre>
+<pre><code class="lang-html">(&lt;a href=&#39;food&#39;&gt;chicken&lt;/a&gt;)</code></pre>
 <h4>Succeed</h4>
 <p>Appends a string to the end of a Haml block, with no whitespace between.
 
 </p>
-<pre><code class="haml">click
+<pre><code class="lang-haml">click
 = succeed &#39;.&#39;, -&gt;
   %a{:href=&gt;&quot;thing&quot;} here</code></pre>
 <p>produces the HTML output
 
 </p>
-<pre><code class="html">click
+<pre><code class="lang-html">click
 &lt;a href=&#39;thing&#39;&gt;here&lt;/a&gt;.</code></pre>
 <h4>Precede</h4>
 <p>Prepends a string to the beginning of a Haml block, with no whitespace between.
 
 </p>
-<pre><code class="haml">= precede &#39;*&#39;, -&gt;
+<pre><code class="lang-haml">= precede &#39;*&#39;, -&gt;
   %span.small Not really</code></pre>
 <p>produces the HTML output
 
 </p>
-<pre><code class="html">*&lt;span class=&#39;small&#39;&gt;Not really&lt;/span&gt;</code></pre>
+<pre><code class="lang-html">*&lt;span class=&#39;small&#39;&gt;Not really&lt;/span&gt;</code></pre>
 <p><a name="coffee-script-support" />
 </p>
 <h2>CoffeeScript support</h2>
@@ -417,7 +432,7 @@ inserting into the document. You can change this behaviour by setting the approp
 <p>HTML style attributes are the most limited and can only assign a simple variable:
 
 </p>
-<pre><code class="haml">%img(src=&#39;/images/demo.png&#39; width=@width height=@height alt=alt)</code></pre>
+<pre><code class="lang-haml">%img(src=&#39;/images/demo.png&#39; width=@width height=@height alt=alt)</code></pre>
 <p>Both the <code>@width</code> and <code>@height</code> values must be passed as locals when rendering the template and <code>alt</code> must be defined
 before the <code>%img</code> tag.
 
@@ -425,17 +440,17 @@ before the <code>%img</code> tag.
 <p>Ruby style tags can be more complex and can call functions:
 
 </p>
-<pre><code class="haml">%header
+<pre><code class="lang-haml">%header
   %user{ :class =&gt; App.currentUser.get(&#39;status&#39;) }= App.currentUser.getDisplayName()</code></pre>
 <p>Attribute definitions are also supported in the Ruby 1.9 style:
 
 </p>
-<pre><code class="haml">%header
+<pre><code class="lang-haml">%header
   %user{ class: App.currentUser.get(&#39;status&#39;) }= App.currentUser.getDisplayName()</code></pre>
 <p>More fancy stuff can be done when use interpolation within a double quoted attribute value:
 
 </p>
-<pre><code class="haml">%header
+<pre><code class="lang-haml">%header
   %user{ class: &quot;#{ if @user.get(&#39;roles&#39;).indexOf(&#39;admin&#39;) is -1 then &#39;normal&#39; else &#39;admin&#39; }&quot; }= @user.getDisplayName()</code></pre>
 <p><em>But think about it twice before putting such fancy stuff into your template, there are better places like models,
 controllers or helpers to put heavy logic into.</em>
@@ -445,7 +460,7 @@ controllers or helpers to put heavy logic into.</em>
 them properly:
 
 </p>
-<pre><code class="haml">%input#password.hint{ type: &#39;password&#39;, name: &#39;registration[password]&#39;,
+<pre><code class="lang-haml">%input#password.hint{ type: &#39;password&#39;, name: &#39;registration[password]&#39;,
                       data: { hint: &#39;Something very important&#39;, align: &#39;left&#39; } }</code></pre>
 <p>In the above example you also see the usage for generating HTML5 data attributes.
 
@@ -456,7 +471,7 @@ them properly:
 <p>You can run any CoffeeScript code in your template:
 
 </p>
-<pre><code class="haml">- for project in @projects
+<pre><code class="lang-haml">- for project in @projects
   - if project.visible
     .project
       %h1= project.name
@@ -489,7 +504,7 @@ details. Haml Coffee implements the same functionality like Ruby Haml, only for 
 <p>You can also create functions that generate Haml:
 
 </p>
-<pre><code class="haml">- sum = (a, b) -&gt;
+<pre><code class="lang-haml">- sum = (a, b) -&gt;
   %div
     %span= a
     %span= b
@@ -499,7 +514,7 @@ details. Haml Coffee implements the same functionality like Ruby Haml, only for 
 <p>or pass generated HTML output through a function for post-processing.
 
 </p>
-<pre><code class="haml">= postProcess -&gt;
+<pre><code class="lang-haml">= postProcess -&gt;
   %a{ href: &#39;/&#39; }</code></pre>
 <p><a name="coffee-script-filter" />
 </p>
@@ -513,7 +528,7 @@ resulting document. This comes in handy when you have code to run over multiple 
 with <code>-</code>:
 
 </p>
-<pre><code class="haml">%body
+<pre><code class="lang-haml">%body
   :coffeescript
     tags = [&#39;CoffeeScript&#39;, &#39;Haml&#39;]
     project = &#39;Haml Coffee&#39;
@@ -663,19 +678,19 @@ are good reasons to do so:
 the CoffeeScript compilation in the project root directory by running:
 
 </p>
-<pre><code class="bash">$ cake watch</code></pre>
+<pre><code class="lang-bash">$ cake watch</code></pre>
 <p>And run the tests by calling:
 
 </p>
-<pre><code class="bash">$ jasmine-node</code></pre>
+<pre><code class="lang-bash">$ jasmine-node</code></pre>
 <p>You can optionally install <a href="https://github.com/guard/guard">Guard</a> with the Ruby <a href="http://gembundler.com/">Bundler</a>:
 
 </p>
-<pre><code class="bash">$ bundle install</code></pre>
+<pre><code class="lang-bash">$ bundle install</code></pre>
 <p>and run Guard to automatically compile your CoffeeScripts and run the Jasmine specs on file modification:
 
 </p>
-<pre><code class="bash">$ bundle exec guard</code></pre>
+<pre><code class="lang-bash">$ bundle exec guard</code></pre>
 <h2>Changelog</h2>
 <p>Feel free to take a look at the crispy <a href="https://github.com/9elements/haml-coffee/blob/master/CHANGELOG.md">changelog</a>
 instead of crawling through the commit history.
@@ -734,13 +749,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div id='footer'>
   Generated on
-  Thu Apr 19 2012 13:44:59 GMT+0200 (CEST)
+  Thu Apr 19 2012 13:53:10 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
-  v0.6.2
+  v0.7.0
   (Node.js v0.6.15).
   &#10034;
-  Press H to see the keyboard shortcuts
+  Press Ctrl-h to see the keyboard shortcuts
   &#10034;
   <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
   &#10034;
