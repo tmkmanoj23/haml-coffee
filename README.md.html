@@ -117,34 +117,6 @@ can be used in client-side JavaScript applications that are using
 frameworks like <a href="http://expressjs.com/">Express</a>.
 
 </p>
-<h2>Contents</h2>
-<ul>
-<li><a href="#installation">Installation</a><ul>
-<li><a href="#installation-integration">Integration</a></li>
-</ul>
-</li>
-<li><a href="#compile-haml-coffee">Compile Haml Coffee</a><ul>
-<li><a href="#using-the-api">Using the API</a></li>
-<li><a href="#using-with-express">Using with Express</a></li>
-<li><a href="#using-the-cli-tool">Using the CLI tool</a></li>
-</ul>
-</li>
-<li><a href="#haml-support">Haml support</a></li>
-<li><a href="#coffee-script-support">CoffeeScript support</a><ul>
-<li><a href="#coffee-script-attributes">Attributes</a></li>
-<li><a href="#coffee-script-running-code">Running code</a></li>
-<li><a href="#coffee-script-filter">Filter</a></li>
-</ul>
-</li>
-<li><a href="#compiler-options">Compiler options</a><ul>
-<li><a href="#html-generation-compiler-options">HTML generation options</a></li>
-<li><a href="#custom-helper-function-compiler-options">Custom helper function options</a></li>
-</ul>
-</li>
-<li><a href="#development-information">Development information</a></li>
-</ul>
-<p><a name="installation" />
-</p>
 <h2>Installation</h2>
 <p>Haml Coffee is available in NPM and can be installed with:
 
@@ -153,8 +125,6 @@ frameworks like <a href="http://expressjs.com/">Express</a>.
 <p>Please have a look at the <a href="https://github.com/9elements/haml-coffee/blob/master/CHANGELOG.md">CHANGELOG</a> when upgrading to a
 newer Codo version with <code>npm update</code>.
 
-</p>
-<p><a name="installation-integration" />
 </p>
 <h2>Integration</h2>
 <p>If you&#39;re using <a href="https://github.com/maccman/hem">Hem</a> to manage your CommonJS modules,
@@ -172,11 +142,7 @@ is provided in the <code>dist/compiler</code> directory:
 (<a href="https://raw.github.com/9elements/haml-coffee/master/dist/compiler/hamlcoffee.min.js">minified</a>)
 
 </p>
-<p><a name="compile-haml-coffee" />
-</p>
 <h2>Compile Haml Coffee</h2>
-<p><a name="using-the-api" />
-</p>
 <h3>Using the API</h3>
 <p>You can compile a Haml Coffee template to a JavaScript function and execute the function with the locals to render the
 HTML. The following code
@@ -200,8 +166,6 @@ hamlc.compile &#39;%h1= @title&#39;
 the <a href="https://github.com/netzpirat/codo">codo</a> generated
 <a href="http://9elements.github.com/haml-coffee/">Haml-Coffee API documentation</a>.
 
-</p>
-<p><a name="using-with-express" />
 </p>
 <h3>Using with Express</h3>
 <p>You can configure <a href="http://expressjs.com/">Express</a> to use Haml Coffee as template engine:
@@ -261,8 +225,6 @@ app.get &#39;/&#39;, (req, res) -&gt;
 <p>You can read more about the view rendering in the
 <a href="http://expressjs.com/guide.html#view-rendering">Express documentation</a>.
 
-</p>
-<p><a name="using-the-cli-tool" />
 </p>
 <h3>Using the CLI tool</h3>
 <p>After the installation you will have a <code>haml-coffee</code> binary that can be used to compile single templates and even
@@ -338,8 +300,6 @@ a template named <code>user/show-admin.html.haml</code> will result in a templat
 <p>This will result in a template that can be accessed by <code>exports.JST[&#39;other&#39;]</code>.
 
 </p>
-<p><a name="haml-support" />
-</p>
 <h2>Haml support</h2>
 <p>Haml Coffee implements the <a href="https://github.com/norman/haml-spec">Haml Spec</a> to ensure some degree of compatibility to
 other Haml implementations and the following sections are fully compatible to Ruby Haml:
@@ -411,8 +371,6 @@ details.
 
 </p>
 <pre><code class="lang-html">*&lt;span class=&#39;small&#39;&gt;Not really&lt;/span&gt;</code></pre>
-<p><a name="coffee-script-support" />
-</p>
 <h2>CoffeeScript support</h2>
 <p>Haml and CoffeeScript are a winning team, both use indention for blocks and are a perfect match for this reason. You can
 use CoffeeScript instead of Ruby in your Haml tags and the attributes.
@@ -420,8 +378,6 @@ use CoffeeScript instead of Ruby in your Haml tags and the attributes.
 </p>
 <p><strong>It&#39;s not recommended to put too much logic into the template.</strong>
 
-</p>
-<p><a name="coffee-script-attributes" />
 </p>
 <h3>Attributes</h3>
 <p>When you define an attribute value without putting it into quotes (single or double quotes), it&#39;s considered to be
@@ -464,8 +420,6 @@ them properly:
                       data: { hint: &#39;Something very important&#39;, align: &#39;left&#39; } }</code></pre>
 <p>In the above example you also see the usage for generating HTML5 data attributes.
 
-</p>
-<p><a name="coffee-script-running-code" />
 </p>
 <h3>Running Code</h3>
 <p>You can run any CoffeeScript code in your template:
@@ -516,13 +470,6 @@ details. Haml Coffee implements the same functionality like Ruby Haml, only for 
 </p>
 <pre><code class="lang-haml">= postProcess -&gt;
   %a{ href: &#39;/&#39; }</code></pre>
-<p><a name="coffee-script-filter" />
-</p>
-<h3>CoffeeScript filter</h3>
-<p>In addition to the <code>:plain</code>, <code>:javascript</code>, <code>:css</code>, <code>:cdata</code>, <code>:escaped</code> and <code>:preserve</code> filters, which are also
-provided by Ruby Haml, Haml Coffee has a <code>:coffeescript</code> filter.
-
-</p>
 <p>The content of the <code>:coffeescript</code> filter is run when the template is rendered and doesn&#39;t output anything into the
 resulting document. This comes in handy when you have code to run over multiple lines and don&#39;t want to prefix each line
 with <code>-</code>:
@@ -536,8 +483,6 @@ with <code>-</code>:
   %ul
     - for tag in tags
       %li= tag</code></pre>
-<p><a name="compiler-options" />
-</p>
 <h2>Compiler options</h2>
 <p>The following section describes all the available compiler options that you can use through the JavaScript API,
 as Express view option or as argument to the command line utility.
@@ -547,8 +492,6 @@ as Express view option or as argument to the command line utility.
 use the <code>--disable-html-escaping</code> argument. You can see a list of all the command line arguments by executing
 <code>haml-coffee --help</code>.
 
-</p>
-<p><a name="html-generation-compiler-options" />
 </p>
 <h3>HTML generation options</h3>
 <p>The HTML options change the way how the generated HTML will look like.
@@ -638,8 +581,6 @@ the newline characters to their equivalent HTML entity.
 <p>The autoclose option defines a list of tag names that should be automatically closed if they have no content.
 
 </p>
-<p><a name="custom-helper-function-compiler-options" />
-</p>
 <h3>Custom helper function options</h3>
 <p>Haml Coffee provides helper functions for HTML escaping, value cleaning and whitespace preservation, which must be
 available at render time. By default every generated template function is self-contained and includes all of the helper
@@ -670,8 +611,6 @@ are good reasons to do so:
 <a href="https://raw.github.com/9elements/haml-coffee/master/dist/helpers/haml_coffee_helpers.coffee">CoffeeScript</a>
 <a href="https://raw.github.com/9elements/haml-coffee/master/dist/helpers/haml_coffee_helpers.js">JavaScript</a>
 
-</p>
-<p><a name="development-information" />
 </p>
 <h2>Development information</h2>
 <p>You&#39;ll need the latest version of <code>node.js</code>, <code>npm</code>, <code>coffee-script</code> and <code>jasmine-node</code> to run everything. Start
@@ -705,13 +644,10 @@ instead of crawling through the commit history.
 </ul>
 <h2>Authors</h2>
 <ul>
-<li><a href="https://github.com/netzpirat">Michael Kessler</a> (<a href="http://twitter.com/#!/netzpirat">@netzpirat</a>)</li>
-<li><a href="https://github.com/sebastiandeutsch">Sebastion Deutsch</a> (<a href="http://twitter.com/#!/sippndipp">@sippndipp</a>)</li>
-<li><a href="https://github.com/janv">Jan Varwig</a> (<a href="http://twitter.com/#!/agento">@agento</a>)</li>
+<li><a href="https://github.com/netzpirat">Michael Kessler</a> (<a href="http://twitter.com/#!/netzpirat">@netzpirat</a>, <a href="https://mksoft.ch">mksoft.ch</a>)</li>
+<li><a href="https://github.com/sebastiandeutsch">Sebastion Deutsch</a> (<a href="http://twitter.com/#!/sippndipp">@sippndipp</a>, <a href="http://9elements.com">9elements</a>)</li>
+<li><a href="https://github.com/janv">Jan Varwig</a> (<a href="http://twitter.com/#!/agento">@agento</a>, <a href="http://9elements.com">9elements</a>)</li>
 </ul>
-<p>Development is sponsored by <a href="http://9elements.com">9elements</a> and <a href="https://mksoft.ch">mksoft.ch</a>.
-
-</p>
 <h2>Contributors</h2>
 <p>See all contributors on <a href="https://github.com/9elements/haml-coffee/contributors">the contributor page</a>.
 
@@ -749,17 +685,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div id='footer'>
   Generated on
-  Thu Apr 19 2012 13:53:10 GMT+0200 (CEST)
+  Wed Jun 06 2012 12:19:10 GMT+0200 (CEST)
   by
-  <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
-  v0.7.0
-  (Node.js v0.6.15).
+  <a href='https=//github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
+  v0.8.1
+  (Node.js v0.6.18).
   &#10034;
   Press Ctrl-h to see the keyboard shortcuts
   &#10034;
-  <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
+  <a href='http=//twitter.com/#!/netzpirat'>@netzpirat</a>
   &#10034;
-  <a href='https://mksoft.ch'>mksoft.ch</a>
+  <a href='https=//mksoft.ch'>mksoft.ch</a>
 </div>
   </body>
 </html>
