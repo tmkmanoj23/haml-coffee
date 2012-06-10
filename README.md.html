@@ -239,7 +239,8 @@ Options:
   -o, --output                       Set the output filename
   -n, --namespace                    Set a custom template namespace
   -t, --template                     Set a custom template name
-  -b, --basename                     Ignore file path when generate the template name</code></pre>
+  -b, --basename                     Ignore file path when generate the template name
+  -e, --extend                       Extend the template scope with the context</code></pre>
 <p><em>The following section describes only the options that are unique to the command line tool.</em>
 
 </p>
@@ -298,6 +299,15 @@ a template named <code>user/show-admin.html.haml</code> will result in a templat
 </p>
 <pre><code class="lang-bash">$ haml-coffee -i template.haml -n exports.JST -t other</code></pre>
 <p>This will result in a template that can be accessed by <code>exports.JST[&#39;other&#39;]</code>.
+
+</p>
+<h4>Extend the template scope</h4>
+<p>By extending the template scope with the context, you can access your context data without <code>@</code> or <code>this</code>:
+
+</p>
+<pre><code class="lang-Haml">%h2= title</code></pre>
+<p>This effect is achieved by using the <a href="https://developer.mozilla.org/en/JavaScript/Reference/Statements/with">with</a>
+statement. Using with is forbidden in ECMAScript 5 strict mode.
 
 </p>
 <h2>Haml support</h2>
@@ -685,7 +695,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div id='footer'>
   Generated on
-  Fri Jun 08 2012 17:05:42 GMT+0200 (CEST)
+  Sun Jun 10 2012 17:42:33 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v0.8.1
