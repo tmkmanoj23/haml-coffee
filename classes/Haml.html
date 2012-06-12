@@ -191,21 +191,11 @@
   <li>
     <span class='signature'>
       <a href='#parseAttributes-instance'>
-        - (Array) <strong>parseAttributes</strong>(exp)
+        - (Object) <strong>parseAttributes</strong>(exp)
       </a>
     </span>
     <span class='desc'>
       Parse attributes either in Ruby style `%tag{ :attr => 'value' }` or HTML style `%tag(attr='value)`.
-    </span>
-  </li>
-  <li>
-    <span class='signature'>
-      <a href='#extractAttributes-instance'>
-        - (Object) <strong>extractAttributes</strong>(exp)
-      </a>
-    </span>
-    <span class='desc'>
-      Extracts the attributes from the expression.
     </span>
   </li>
   <li>
@@ -220,8 +210,18 @@
   </li>
   <li>
     <span class='signature'>
-      <a href='#quoteAttributeValue-instance'>
-        - (String) <strong>quoteAttributeValue</strong>(value)
+      <a href='#wrapCode-instance'>
+        - (String) <strong>wrapCode</strong>(text, unwrap = false)
+      </a>
+    </span>
+    <span class='desc'>
+      Wrap plain attributes into an interpolation for execution.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#quoteAndEscapeAttributeValue-instance'>
+        - (String) <strong>quoteAndEscapeAttributeValue</strong>(value, code = false)
       </a>
     </span>
     <span class='desc'>
@@ -351,7 +351,7 @@
   </div>
   <div class='method_details'>
     <p class='signature' id='parseAttributes-instance'>
-      - (Array) <strong>parseAttributes</strong>(exp)
+      - (Object) <strong>parseAttributes</strong>(exp)
     </p>
     <div class='docstring'>
   <p>Parse attributes either in Ruby style <code>%tag{ :attr =&gt; &#39;value&#39; }</code> or HTML style <code>%tag(attr=&#39;value)</code>. Both styles can be mixed: <code>%tag(attr=&#39;value){ :attr =&gt; &#39;value&#39; }</code>. </p> <p>This takes also care of proper attribute interpolation, unwrapping quoted keys and value, e.g. <code>&#39;a&#39; =&gt; &#39;hello&#39;</code> becomes <code>a =&gt; hello</code>. </p> 
@@ -372,41 +372,10 @@
   <ul class='return'>
     <li>
       <span class='type'>
-        (<tt>Array</tt>)
-      </span>
-      &mdash;
-      <span class='desc'>the parsed attribute tokens</span>
-    </li>
-  </ul>
-</div>
-  </div>
-  <div class='method_details'>
-    <p class='signature' id='extractAttributes-instance'>
-      - (Object) <strong>extractAttributes</strong>(exp)
-    </p>
-    <div class='docstring'>
-  <p>Extracts the attributes from the expression. </p> 
-</div>
-<div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>exp</span>
-      <span class='type'>
-        (<tt>String</tt>)
-      </span>
-      &mdash;
-      <span class='desc'>the expression to check</span>
-    </li>
-  </ul>
-  <h3>Returns:</h3>
-  <ul class='return'>
-    <li>
-      <span class='type'>
         (<tt>Object</tt>)
       </span>
       &mdash;
-      <span class='desc'>the attributes</span>
+      <span class='desc'>the parsed attributes</span>
     </li>
   </ul>
 </div>
@@ -454,8 +423,47 @@
 </div>
   </div>
   <div class='method_details'>
-    <p class='signature' id='quoteAttributeValue-instance'>
-      - (String) <strong>quoteAttributeValue</strong>(value)
+    <p class='signature' id='wrapCode-instance'>
+      - (String) <strong>wrapCode</strong>(text, unwrap = false)
+    </p>
+    <div class='docstring'>
+  <p>Wrap plain attributes into an interpolation for execution. In addition wrap it into escaping and cleaning function, depending on the options. </p> 
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>text</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the possible code</span>
+    </li>
+    <li>
+      <span class='name'>unwrap</span>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>unwrap static text from quotes</span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the text of the wrapped code</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='quoteAndEscapeAttributeValue-instance'>
+      - (String) <strong>quoteAndEscapeAttributeValue</strong>(value, code = false)
     </p>
     <div class='docstring'>
   <p>Quote the attribute value, depending on its content. </p> 
@@ -470,6 +478,14 @@
       </span>
       &mdash;
       <span class='desc'>the without start and end quote</span>
+    </li>
+    <li>
+      <span class='name'>code</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>if we are in a code block</span>
     </li>
   </ul>
   <h3>Returns:</h3>
@@ -550,7 +566,7 @@
     </div>
     <div id='footer'>
   Generated on
-  Sun Jun 10 2012 17:42:33 GMT+0200 (CEST)
+  Tue Jun 12 2012 15:17:14 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v0.8.1

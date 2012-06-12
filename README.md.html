@@ -568,7 +568,10 @@ since there is no Haml markup for this to instruct the compiler to change the es
 <li>Default: <code>true</code></li>
 </ul>
 <p>Every output that is generated from evaluating CoffeeScript code is cleaned before inserting into the document. The
-default implementation converts <code>null</code> or <code>undefined</code> values into an empty string.
+default implementation converts <code>null</code> or <code>undefined</code> values into an empty string and marks real boolean values with a
+hidden marker character. The hidden marker character is necessary to distinguish between String values like <code>&#39;true&#39;</code>,
+<code>&#39;false&#39;</code> and real boolean values <code>true</code>, <code>false</code> in the markup, so that a boolean attribute conversion can quickly
+convert these values to the correct HTML5/XHTML/HTML4 representation.
 
 </p>
 <h4>Preserve whitespace tags</h4>
@@ -617,9 +620,8 @@ are good reasons to do so:
 <li><code>customSucceed</code>: Appends a string to the end of a Haml block, with no whitespace between.</li>
 <li><code>customPrecede</code>: Prepends a string to the beginning of a Haml block, with no whitespace between.</li>
 </ul>
-<p>You can find a default implementation for all these helper functions in the <code>dist/helpers</code> directory:
-<a href="https://raw.github.com/9elements/haml-coffee/master/dist/helpers/haml_coffee_helpers.coffee">CoffeeScript</a>
-<a href="https://raw.github.com/9elements/haml-coffee/master/dist/helpers/haml_coffee_helpers.js">JavaScript</a>
+<p>You can find a default implementation for all these helper functions in
+<a href="https://github.com/netzpirat/haml_coffee_assets/blob/master/vendor/assets/javascripts/hamlcoffee.js.coffee.erb">Haml Coffee Assets</a>.
 
 </p>
 <h2>Development information</h2>
@@ -695,7 +697,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div id='footer'>
   Generated on
-  Sun Jun 10 2012 17:42:33 GMT+0200 (CEST)
+  Tue Jun 12 2012 15:17:14 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v0.8.1

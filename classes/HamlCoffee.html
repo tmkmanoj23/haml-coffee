@@ -794,7 +794,7 @@
       - (String) <strong>convertBooleans</strong>(code)
     </p>
     <div class='docstring'>
-  <p>Adds a boolean convert logic that changes boolean attribute values depending on the output format. </p> <p>With the XHTML format, an attribute <code>checked=&#39;true&#39;</code> will be converted to <code>checked=&#39;checked&#39;</code> and <code>checked=&#39;false&#39;</code> will be completely removed. </p> <p>With the HTML4 and HTML5 format, an attribute <code>checked=&#39;true&#39;</code> will be converted to <code>checked</code> and <code>checked=&#39;false&#39;</code> will be completely removed. </p> 
+  <p>Adds a boolean convert logic that changes boolean attribute values depending on the output format. This works only when the clean value function add a hint marker (\u0093) to each boolean value, so that the conversion logic can disinguish between dynamic, real boolean values and string values like &#39;false&#39; and &#39;true&#39; or  compile time attributes. </p> <p>With the XHTML format, an attribute <code>checked=&#39;true&#39;</code> will be converted to <code>checked=&#39;checked&#39;</code> and <code>checked=&#39;false&#39;</code> will be completely removed. </p> <p>With the HTML4 and HTML5 format, an attribute <code>checked=&#39;true&#39;</code> will be converted to <code>checked</code> and <code>checked=&#39;false&#39;</code> will be completely removed. </p> 
 </div>
 <div class='tags'>
   <h3>Returns:</h3>
@@ -844,7 +844,7 @@
     </div>
     <div id='footer'>
   Generated on
-  Sun Jun 10 2012 17:42:33 GMT+0200 (CEST)
+  Tue Jun 12 2012 15:17:14 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v0.8.1
