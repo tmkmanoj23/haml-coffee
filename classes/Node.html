@@ -124,11 +124,11 @@
 </div>
       <h2>Direct Known Subclasses</h2>
       <p class='children'>
-                <a href="../classes/Code.html">Code</a>,
-                <a href="../classes/Comment.html">Comment</a>,
-                <a href="../classes/Filter.html">Filter</a>,
-                <a href="../classes/Haml.html">Haml</a>,
-        <a href="../classes/Text.html">Text</a>
+                <a href='../classes/Code.html'>Code</a>,
+                <a href='../classes/Comment.html'>Comment</a>,
+                <a href='../classes/Filter.html'>Filter</a>,
+                <a href='../classes/Haml.html'>Haml</a>,
+        <a href='../classes/Text.html'>Text</a>
       </p>
       <h2>Constant Summary</h2>
       <dl class='constants'>
@@ -208,6 +208,16 @@
     </span>
     <span class='desc'>
       Traverse up the tree to see if a parent node is preserving output space.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#isCommented-instance'>
+        - (Boolean) <strong>isCommented</strong>()
+      </a>
+    </span>
+    <span class='desc'>
+      Traverse up the tree to see if a parent node is a comment node.
     </span>
   </li>
   <li>
@@ -424,6 +434,26 @@
 </div>
   </div>
   <div class='method_details'>
+    <p class='signature' id='isCommented-instance'>
+      - (Boolean) <strong>isCommented</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Traverse up the tree to see if a parent node is a comment node. </p> 
+</div>
+<div class='tags'>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>true when within a comment</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
     <p class='signature' id='markText-instance'>
       - (Object) <strong>markText</strong>(text, escape = false)
     </p>
@@ -590,11 +620,11 @@
     </div>
     <div id='footer'>
   Generated on
-  Tue Jun 19 2012 09:56:25 GMT+0200 (CEST)
+  Fri Jun 29 2012 14:07:44 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v0.8.1
-  (Node.js v0.6.19).
+  (Node.js v0.8.0).
   &#10034;
   Press Ctrl-h to see the keyboard shortcuts
   &#10034;
