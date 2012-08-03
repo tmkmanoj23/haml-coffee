@@ -117,6 +117,9 @@ can be used in client-side JavaScript applications that are using
 frameworks like <a href="http://expressjs.com/">Express</a>.
 
 </p>
+<p>You can try Haml Coffee online by visiting <a href="http://haml-coffee-online.herokuapp.com/">Haml Coffee Online</a>.
+
+</p>
 <h2>Installation</h2>
 <p>Haml Coffee is available in NPM and can be installed with:
 
@@ -464,6 +467,39 @@ chosen in the compile option:
 details. Haml Coffee implements the same functionality like Ruby Haml, only for CoffeeScript.
 
 </p>
+<h4>Multiline code blocks</h4>
+<p>Running code must be placed on a single line and unlike Ruby Haml, you cannot stretch a it over multiple lines by
+putting a comma at the end.
+
+</p>
+<p>However, you can use multiline endings <code>|</code> to stretch your code over multiple lines to some extend:
+
+</p>
+<pre><code class="lang-Haml">- links = {          |
+    home: &#39;/&#39;,       |
+    docs: &#39;/docs&#39;,   |
+    about: &#39;/about&#39;  |
+  }                  |
+
+%ul
+  - for name, link of links
+    %li
+      %a{ href: link }= name</code></pre>
+<p>Please note, that since the line is concatenated before the compilation, you cannot omit the curly braces and the
+commas in the above example, like you&#39;d do in normal CoffeeScript code. Therefore it&#39;s recommended to use the
+CoffeeScript filter have real multiline code blocks:
+
+</p>
+<pre><code class="lang-Haml">:coffeescript
+  links =
+    home: &#39;/&#39;
+    docs: &#39;/docs&#39;
+    about: &#39;/about&#39;
+
+%ul
+  - for name, link of links
+    %li
+      %a{ href: link }= name</code></pre>
 <h4>Functions</h4>
 <p>You can also create functions that generate Haml:
 
@@ -697,11 +733,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div id='footer'>
   Generated on
-  Wed Jul 18 2012 18:13:00 GMT+0200 (CEST)
+  Fri Aug 03 2012 12:52:22 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v0.8.1
-  (Node.js v0.8.2).
+  (Node.js v0.8.4).
   &#10034;
   Press Ctrl-h to see the keyboard shortcuts
   &#10034;

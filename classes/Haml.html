@@ -125,24 +125,24 @@
     <h4>
       Haml id
     </h4>
-    <pre><code class='coffee'>#content                              =&gt;  &lt;div id=&apos;content&apos;&gt;&lt;/div&gt;
-%span#status{ :id =&gt; @user.status }   =&gt;  &lt;span id=&apos;status_#{ @user.status }&apos;&gt;&lt;/span&gt;</code></pre>
+    <pre><code class='coffee'>#content                              =&gt;  &lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+%span#status{ :id =&gt; @user.status }   =&gt;  &lt;span id=&#39;status_#{ @user.status }&#39;&gt;&lt;/span&gt;</code></pre>
     <h4>
       Haml classes
     </h4>
-    <pre><code class='coffee'>.hidden                               =&gt; &lt;div class=&apos;hidden&apos;&gt;&lt;/div&gt;
-%span.large.hidden                    =&gt; &lt;span class=&apos;large hidden&apos;&gt;&lt;/span&gt;
-.large{ :class =&gt; @user.role }        =&gt; &lt;div class=&apos;large #{ @user.role }&apos;&gt;&lt;/div&gt;</code></pre>
+    <pre><code class='coffee'>.hidden                               =&gt; &lt;div class=&#39;hidden&#39;&gt;&lt;/div&gt;
+%span.large.hidden                    =&gt; &lt;span class=&#39;large hidden&#39;&gt;&lt;/span&gt;
+.large{ :class =&gt; @user.role }        =&gt; &lt;div class=&#39;large #{ @user.role }&#39;&gt;&lt;/div&gt;</code></pre>
     <h4>
       Haml HTML attributes
     </h4>
-    <pre><code class='coffee'>%p(class=&apos;hidden&apos;)                     =&gt; &lt;p class=&apos;hidden&apos;&gt;&lt;p&gt;
-#account(class=@status)                =&gt; &lt;div id=&apos;account&apos; class=&apos;#{ status }&apos;&gt;&lt;/div&gt;
-.logout(title=&quot;Logout #{ user.name }&quot;) =&gt; &lt;div class=&apos;logout&apos; title=&apos;Logout #{ user.name }&apos;&gt;&lt;/div&gt;</code></pre>
+    <pre><code class='coffee'>%p(class=&#39;hidden&#39;)                     =&gt; &lt;p class=&#39;hidden&#39;&gt;&lt;p&gt;
+#account(class=@status)                =&gt; &lt;div id=&#39;account&#39; class=&#39;#{ status }&#39;&gt;&lt;/div&gt;
+.logout(title=&quot;Logout #{ user.name }&quot;) =&gt; &lt;div class=&#39;logout&#39; title=&#39;Logout #{ user.name }&#39;&gt;&lt;/div&gt;</code></pre>
     <h4>
       Haml Ruby attributes
     </h4>
-    <pre><code class='coffee'>%p{ :class =&gt; App.user.get(&apos;role&apos;) }   =&gt; &lt;p class=&apos;#{ App.user.get(&apos;role&apos;) }&apos;&gt;&lt;/p&gt;</code></pre>
+    <pre><code class='coffee'>%p{ :class =&gt; App.user.get(&#39;role&#39;) }   =&gt; &lt;p class=&#39;#{ App.user.get(&#39;role&#39;) }&#39;&gt;&lt;/p&gt;</code></pre>
   </div>
 </div>
 <div class='tags'>
@@ -230,6 +230,16 @@
   </li>
   <li>
     <span class='signature'>
+      <a href='#splitInterpolations-instance'>
+        - (Array&lt;String&gt;) <strong>splitInterpolations</strong>(value)
+      </a>
+    </span>
+    <span class='desc'>
+      Split expression by its interpolations.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
       <a href='#buildDocType-instance'>
         - (String) <strong>buildDocType</strong>(doctype)
       </a>
@@ -292,7 +302,7 @@
     <h4>
       Id merging
     </h4>
-    <pre><code class='coffee'>#user{ :id =&gt; @user.id }    =&gt;  &lt;div id=&apos;user_#{ @user.id }&apos;&gt;&lt;/div&gt;</code></pre>
+    <pre><code class='coffee'>#user{ :id =&gt; @user.id }    =&gt;  &lt;div id=&#39;user_#{ @user.id }&#39;&gt;&lt;/div&gt;</code></pre>
   </div>
 </div>
 <div class='tags'>
@@ -392,11 +402,11 @@
     <h4>
       Prefix tag
     </h4>
-    <pre><code class='coffee'>&lt;a id=&apos;id&apos; class=&apos;class&apos; attr=&apos;value&apos;</code></pre>
+    <pre><code class='coffee'>&lt;a id=&#39;id&#39; class=&#39;class&#39; attr=&#39;value&#39;</code></pre>
     <h4>
       Template render time sorting
     </h4>
-    <pre><code class='coffee'>&lt;p class=&apos;#{ [@user.name(), &apos;show&apos;].sort().join(&apos; &apos;) }&apos;&gt;</code></pre>
+    <pre><code class='coffee'>&lt;p class=&#39;#{ [@user.name(), &#39;show&#39;].sort().join(&#39; &#39;) }&#39;&gt;</code></pre>
   </div>
 </div>
 <div class='tags'>
@@ -502,6 +512,50 @@
 </div>
   </div>
   <div class='method_details'>
+    <p class='signature' id='splitInterpolations-instance'>
+      - (Array&lt;String&gt;) <strong>splitInterpolations</strong>(value)
+    </p>
+    <div class='docstring'>
+  <p>Split expression by its interpolations. </p> 
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      
+    </h4>
+    <pre><code class='coffee'>&#39;Hello #{ &quot;#{ soso({}) }&quot; } Interpol&#39;) =&gt; [&quot;Hello &quot;, &quot;#{ &quot;#{ soso({}) }&quot; }&quot;, &quot; Interpol&quot;]
+&#39;Hello #{ &quot;#{ soso }&quot; } Interpol&#39;) =&gt; [&quot;Hello &quot;, &quot;#{ &quot;#{ soso }&quot; }&quot;, &quot; Interpol&quot;]
+&#39;Hello #{ int } Interpol&#39;) =&gt; [&quot;Hello &quot;, &quot;#{ int }&quot;, &quot; Interpol&quot;]
+&#39;Hello Interpol&#39;) =&gt; [&quot;Hello Interpol&quot;]
+&#39;#{ int } Interpol&#39;) =&gt; [&quot;#{ int }&quot;, &quot; Interpol&quot;]
+&#39;Hello #{ int }&#39;) =&gt; [&quot;Hello &quot;, &quot;#{ int }&quot;]
+&#39;#{ int }&#39;) =&gt; [&quot;#{ int }&quot;]</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>value</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the attribute value</span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'>
+        (<tt>Array<String></tt>)
+      </span>
+      &mdash;
+      <span class='desc'>the splitted string</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
     <p class='signature' id='buildDocType-instance'>
       - (String) <strong>buildDocType</strong>(doctype)
     </p>
@@ -567,11 +621,11 @@
     </div>
     <div id='footer'>
   Generated on
-  Wed Jul 18 2012 18:13:00 GMT+0200 (CEST)
+  Fri Aug 03 2012 12:52:22 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v0.8.1
-  (Node.js v0.8.2).
+  (Node.js v0.8.4).
   &#10034;
   Press Ctrl-h to see the keyboard shortcuts
   &#10034;
