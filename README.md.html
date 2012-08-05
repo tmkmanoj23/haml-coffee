@@ -194,6 +194,10 @@ express = require &#39;express&#39;
 
 app = express.createServer()
 app.engine &#39;.hamlc&#39;, cons[&#39;haml-coffee&#39;]</code></pre>
+<p>Until <a href="https://github.com/visionmedia/consolidate.js/pull/49">consolidate.js pull request #49</a> is merged, it&#39;s
+recommended to directly use the Haml Coffee <code>__express</code> function over consolidate.js to have improved render speed.
+
+</p>
 <h4>Express 2</h4>
 <p>Starting with version 0.5.0, Haml Coffee has support for Express 2 and can be registered as view engine as follows:
 
@@ -236,36 +240,40 @@ app.get &#39;/&#39;, (req, res) -&gt;
   res.render &#39;index.hamlc&#39;, name: &#39;Express user&#39;
 </p>
 <pre><code>
-You can also turn off the layout rendering by configure the `view options`:
+#### Default template engine
+
+It&#39;s possible to use Haml Coffee as the default template engine by setting the `view engine`:
 
 ```coffee-script
-app.set &#39;view options&#39;, layout: false</code></pre>
-<p>See the <a href="#compiler-options">compiler options</a> for detailed information about all the available options.
-
-</p>
-<p>It&#39;s possible to use Haml Coffee as the default template engine by setting the <code>view engine</code>:
+app.configure -&gt;
+  app.set &#39;view engine&#39;, &#39;hamlc&#39;</code></pre>
+<p>which allows you to omit the <code>.hamlc</code> extension when rendering a template:
 
 </p>
 <p>```coffee-script
-app.configure -&gt;
-  app.set &#39;view engine&#39;, &#39;hamlc&#39;
+app.get &#39;/&#39;, (req, res) -&gt;
+  res.render &#39;index&#39;, name: &#39;Express user&#39;
 </p>
 <pre><code>
-which allows you to omit the `.hamlc` extension when rendering a template:
+#### Compiler options
 
-```coffee-script
-app.get &#39;/&#39;, (req, res) -&gt;
-  res.render &#39;index&#39;, name: &#39;Express user&#39;</code></pre>
-<p>You can read more about the view rendering in the
-<a href="http://expressjs.com/guide.html#view-rendering">Express documentation</a>.
-
+With Express 3, you can set global compiler options by using `app.locals`:</code></pre>
+<p>app.locals.uglify = true
 </p>
-<h3>Using the CLI tool</h3>
-<p>After the installation you will have a <code>haml-coffee</code> binary that can be used to compile single templates and even
+<pre><code>
+which is the same as:</code></pre>
+<p>res.render view, { uglify: true }
+</p>
+<pre><code>
+See the [compiler options](#compiler-options) for detailed information about all the available options.
+
+### Using the CLI tool
+
+After the installation you will have a `haml-coffee` binary that can be used to compile single templates and even
 compile multiple templates recursively into a single file.
 
-</p>
-<pre><code class="lang-bash">$ haml-coffee
+```bash
+$ haml-coffee
 Usage: node haml-coffee
 
 Options:
@@ -764,7 +772,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </div>
     <div id='footer'>
   Generated on
-  Sun Aug 05 2012 15:59:35 GMT+0200 (CEST)
+  Sun Aug 05 2012 17:47:21 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v0.8.1
